@@ -1,5 +1,7 @@
-const BASE_URL = 'http://jobapply-env.eba-f9u9rk85.ap-southeast-1.elasticbeanstalk.com/api/v1';
+const BASE_URL =
+  "http://jobapply-env.eba-f9u9rk85.ap-southeast-1.elasticbeanstalk.com/api/v1";
 
-const loginAPI = `/auth/authenticate`
+const loginAPI = `/auth/authenticate`;
+const logoutAPI = `/auth/logout`;
 
-export { BASE_URL, loginAPI };
+export { BASE_URL, loginAPI, logoutAPI };

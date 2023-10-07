@@ -1,20 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form } from "antd";
 import { GeneralInput, PasswordInput } from "../../components/FormComponent";
 import { CustomLabel } from "../../components/CustomComponent";
-
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
 import { login } from "./loginSlice";
+import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthProvider";
+import { STATUS } from "../../ultils/constant";
+import { selectAuth } from "../../stores/reducer/authSlice";
 
 const LoginForm = () => {
+  const { setUserInfo } = useAuth();
+  const { userInfo, status: loginStatus, isLoggedIn } = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const handleSubmit = (value) => {
-    // dispatch(login(value));
-    console.log(value);
+    dispatch(login(value));
+    setUserInfo(userInfo);
   };
+  useEffect(() => {
+    if (loginStatus === STATUS.ERROR) {
+      notification.error({
+        message: "Failed",
+        description: "Email or password is incorrect!",
+      });
+    }
+  }, [loginStatus]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      notification.success({
+        message: "Success",
+        description: "Logged in successfully!",
+      });
+      navigate("/community");
+    }
+  }, [isLoggedIn]);
+
   return (
     <Form
       name="loginForm"

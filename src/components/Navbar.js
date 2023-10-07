@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/login/loginSlice";
+import { notification } from "antd";
+import { selectAuth } from "../stores/reducer/authSlice";
 
 const Navbar = () => {
   const styleLink = `px-4 text-lg hover:border-b-2 border-gray-500 flex items-center`;
   const [active, setActive] = useState("");
+  const dispatch = useDispatch();
+  const { isLoggedIn, userInfo } = useSelector(selectAuth);
 
   return (
     <div className="flex h-[4.5rem] shadow fixed w-full bg-white top-0 z-10">
@@ -62,21 +68,39 @@ const Navbar = () => {
             Review
           </Link>
         </div>
-        <div className="flex items-center">
-          <Link
-            to="/login"
-            className="px-4 py-2 bg-black font-semibold text-white hover:text-black me-4 rounded hover:bg-gray-200 hover:border-2 hover:border-black"
-          >
-            <i className="bi bi-box-arrow-in-right me-2b text-xl bg-black bg-transparent me-2"></i>
-            Login
-          </Link>
-          <Link
-            to="sign-up"
-            className="px-4 py-2 rounded border-2 border-black hover:text-white hover:bg-black font-semibold"
-          >
-            Sign Up
-          </Link>
-        </div>
+        {isLoggedIn ? (
+          <div className="flex items-center gap-5">
+            <div>{userInfo?.fullName}</div>
+            <div
+              onClick={() => {
+                dispatch(logout());
+                notification.success({
+                  message: "Success",
+                  description: "Logout successful!",
+                });
+              }}
+              className="cursor-pointer px-4 py-2 rounded border-2 border-black hover:text-white hover:bg-black font-semibold"
+            >
+              Logout
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center">
+            <Link
+              to="/login"
+              className="px-4 py-2 bg-black font-semibold text-white hover:text-black me-4 rounded hover:bg-gray-200 hover:border-2 hover:border-black"
+            >
+              <i className="bi bi-box-arrow-in-right me-2b text-xl bg-black bg-transparent me-2"></i>
+              Login
+            </Link>
+            <Link
+              to="sign-up"
+              className="px-4 py-2 rounded border-2 border-black hover:text-white hover:bg-black font-semibold"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
