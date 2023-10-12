@@ -1,31 +1,16 @@
 import styled from "styled-components";
-import { Input } from "antd";
+import { DatePicker, Input } from "antd";
+
 const GeneralInput = styled(Input)`
   border: 1px solid rgb(0 0 0);
   border-radius: 4px;
   padding: 1rem;
 `;
+
 const PasswordInput = styled(Input.Password)`
   border: 1px solid rgb(0 0 0);
   border-radius: 4px;
   padding: 1rem;
-`;
-const SelectInput = styled.select`
-  border: 1px solid rgb(0 0 0);
-  border-radius: 4px;
-  padding: 1rem;
-  display: block;
-  width: 100%;
-  &:hover {
-    border-color: #4096ff;
-  }
-  &:focus {
-    border-color: #4096ff;
-  }
-  appearance: none;
-`;
-const OptionInput = styled.option`
-  color: black;
 `;
 
 const AddItemButton = styled.div`
@@ -41,4 +26,24 @@ const AddItemButton = styled.div`
   cursor: pointer;
   justify-content: center;
 `;
-export { GeneralInput, PasswordInput, SelectInput, OptionInput, AddItemButton };
+
+const CustomLabel = styled.label`
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+  font-size: 1rem !important;
+`;
+
+const CustomDatePicker = styled(DatePicker.RangePicker)`
+  border: 1px solid rgb(0 0 0);
+  border-radius: 4px;
+  padding: 1rem;
+  width: 100%;
+`;
+
+export {
+  GeneralInput,
+  PasswordInput,
+  AddItemButton,
+  CustomLabel,
+  CustomDatePicker,
+};

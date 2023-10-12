@@ -12,8 +12,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isLoggedIn: getUserInfo() ? true : false,
+    isRegister: false,
     userInfo: getUserInfo() ? getUserInfo() : "{}",
-    status: STATUS.IDLE,
+    loginStatus: STATUS.IDLE,
+    signUpStatus: STATUS.IDLE,
   },
   reducers: {
     loginSuccess: (state, action) => {
@@ -28,12 +30,24 @@ const authSlice = createSlice({
       removeToken();
       removeUserInfo();
     },
-    setStatus: (state, action) => {
-      state.status = action.payload;
+    registerSuccess: (state, action) => {
+      state.isRegister = action.payload;
+    },
+    setLoginStatus: (state, action) => {
+      state.loginStatus = action.payload;
+    },
+    setSignUpStatus: (state, action) => {
+      state.signUpStatus = action.payload;
     },
   },
 });
 
-export const { setStatus, loginSuccess, logoutSuccess } = authSlice.actions;
+export const {
+  setLoginStatus,
+  setSignUpStatus,
+  loginSuccess,
+  logoutSuccess,
+  registerSuccess,
+} = authSlice.actions;
 export default authSlice.reducer;
 export const selectAuth = (state) => state.auth;

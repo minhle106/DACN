@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import SignUpForm from "../../../../features/signUp/SignUpForm";
+import React, { useState } from "react";
+import SignUpForm from "../../../../features/loginSignUp/SignUpForm";
 import signUp_img from "../../../../assets/images/signup.webp";
 import "./SignUp.scss";
 import { Form } from "antd";
@@ -11,7 +11,7 @@ const SignUp = () => {
   const [form] = Form.useForm();
 
   const handleChange = (value) => {
-    if (step > value) {
+    if (step > value && step !== 2) {
       setStep(value);
     }
   };

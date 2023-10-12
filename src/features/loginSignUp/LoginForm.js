@@ -1,19 +1,17 @@
 import React, { useEffect } from "react";
-import { Form } from "antd";
 import { GeneralInput, PasswordInput } from "../../components/FormComponent";
 import { CustomLabel } from "../../components/CustomComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { login } from "./loginSlice";
-import { notification } from "antd";
+import { login } from "./loginSignUpSlice";
+import { notification, Form } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
-import { STATUS } from "../../ultils/constant";
 import { selectAuth } from "../../stores/reducer/authSlice";
 
 const LoginForm = () => {
   const { setUserInfo } = useAuth();
-  const { userInfo, status: loginStatus, isLoggedIn } = useSelector(selectAuth);
+  const { userInfo, isLoggedIn } = useSelector(selectAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -21,14 +19,7 @@ const LoginForm = () => {
     dispatch(login(value));
     setUserInfo(userInfo);
   };
-  useEffect(() => {
-    if (loginStatus === STATUS.ERROR) {
-      notification.error({
-        message: "Failed",
-        description: "Email or password is incorrect!",
-      });
-    }
-  }, [loginStatus]);
+
   useEffect(() => {
     if (isLoggedIn) {
       notification.success({
@@ -59,7 +50,7 @@ const LoginForm = () => {
           },
         ]}
       >
-        <GeneralInput />
+        <GeneralInput placeholder="Type your email" />
       </Form.Item>
 
       <Form.Item
@@ -68,7 +59,7 @@ const LoginForm = () => {
         required={false}
         rules={[{ required: true, message: "Please input your password!" }]}
       >
-        <PasswordInput />
+        <PasswordInput placeholder="Type your password" />
       </Form.Item>
       <Link className="text-teal-600 font-semibold hover:text-teal-800">
         Forgot password?

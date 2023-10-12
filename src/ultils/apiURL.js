@@ -3,5 +3,6 @@ const BASE_URL =
 
 const loginAPI = `/auth/authenticate`;
 const logoutAPI = `/auth/logout`;
+const registerAPI = `/auth/register`;
 
-export { BASE_URL, loginAPI, logoutAPI };
+export { BASE_URL, loginAPI, logoutAPI, registerAPI };

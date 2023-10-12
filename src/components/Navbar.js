@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../features/login/loginSlice";
+import { logout } from "../features/loginSignUp/loginSignUpSlice";
 import { notification } from "antd";
 import { selectAuth } from "../stores/reducer/authSlice";
 
