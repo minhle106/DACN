@@ -2,40 +2,36 @@
 
 
 body, html {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
   padding: 0;
   background: #f0f2f5;
   font-family: 'Poppins', sans-serif;
-  .ant-select {
-    &:hover {
-      border-color: #4f9cfa;
-      border: 1px;
-    }
-    border-radius: 6px;
-    height: 3.75rem;
-    border: 1px solid black;
+
+  .ant-select-item-option-content {
+    padding: 5px;
   }
-  .ant-select-selector{
-    padding-left: 1rem !important;
+
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 5px; 
   }
-  .ant-select-selection-item{
-    text-align: left;
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
   }
-  .ant-select-item-option-selected{
-    padding-right: 10px;
+  
+  /* Handle */  
+  ::-webkit-scrollbar-thumb {
+    background: #d6d6d6;
   }
-  .ant-select-item-option-content{
-    padding: 10px;
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c0c0c0;
+    cursor: pointer;
   }
-  .ant-select-arrow{
-    top: 1.3rem !important;
-    inset-inline-end: 16px !important;
-  }
-  span.ant-select-selection-placeholder {
-    text-align: left;
-    margin-left: 5px;
- }
 }
 
 

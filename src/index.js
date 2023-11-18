@@ -3,32 +3,34 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./stores/store";
 import { ConfigProvider } from "antd";
-import { AuthProvider } from "./context/AuthProvider";
+import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <AuthProvider>
-        <ConfigProvider
-          theme={{
-            token: {
-              fontFamily: "'Poppins', sans-serif",
-              fontSize: "1rem",
-              //  colorPrimary: "#000000",
-            },
-          }}
-        >
-          <BrowserRouter>
+    <BrowserRouter>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <ConfigProvider
+            theme={{
+              token: {
+                fontFamily: "'Poppins', sans-serif",
+              },
+            }}
+          >
             <App />
-          </BrowserRouter>
-        </ConfigProvider>
-      </AuthProvider>
-    </Provider>
+          </ConfigProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

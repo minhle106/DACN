@@ -1,6 +1,6 @@
 import React from "react";
-import login_img from "../../../../assets/images/login.png";
-import LoginForm from "../../../../features/loginSignUp/LoginForm";
+import login_img from "../../../assets/images/login.png";
+import LoginForm from "../../../features/loginSignUp/LoginForm";
 
 const Login = () => {
   return (

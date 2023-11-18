@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
-import { GeneralInput, PasswordInput } from "../../components/FormComponent";
-import { CustomLabel } from "../../components/CustomComponent";
+import {
+  BigInput,
+  BigPasswordInput,
+  BigLabel,
+} from "../../components/StyledComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { login } from "./loginSignUpSlice";
 import { notification, Form } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthProvider";
-import { selectAuth } from "../../stores/reducer/authSlice";
+import { login, selectAuth } from "../../stores/reducer/authSlice";
+import { PATH } from "../../route/paths";
 
 const LoginForm = () => {
-  const { setUserInfo } = useAuth();
-  const { userInfo, isLoggedIn } = useSelector(selectAuth);
+  const { isLoggedIn } = useSelector(selectAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const handleSubmit = (value) => {
     dispatch(login(value));
-    setUserInfo(userInfo);
   };
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const LoginForm = () => {
         message: "Success",
         description: "Logged in successfully!",
       });
-      navigate("/community");
+      navigate(PATH.HOME);
     }
   }, [isLoggedIn]);
 
@@ -39,7 +39,7 @@ const LoginForm = () => {
       autoComplete="off"
     >
       <Form.Item
-        label={<CustomLabel>Email:</CustomLabel>}
+        label={<BigLabel>Email:</BigLabel>}
         name="email"
         required={false}
         rules={[
@@ -50,16 +50,16 @@ const LoginForm = () => {
           },
         ]}
       >
-        <GeneralInput placeholder="Type your email" />
+        <BigInput placeholder="Type your email" />
       </Form.Item>
 
       <Form.Item
-        label={<CustomLabel>Password:</CustomLabel>}
+        label={<BigLabel>Password:</BigLabel>}
         name="password"
         required={false}
         rules={[{ required: true, message: "Please input your password!" }]}
       >
-        <PasswordInput placeholder="Type your password" />
+        <BigPasswordInput placeholder="Type your password" />
       </Form.Item>
       <Link className="text-teal-600 font-semibold hover:text-teal-800">
         Forgot password?

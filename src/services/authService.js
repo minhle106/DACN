@@ -1,15 +1,24 @@
-import { loginAPI, logoutAPI, registerAPI } from "../ultils/apiURL";
 import http from "../ultils/httpConfig";
 
+import {
+  loginAPI,
+  logoutAPI,
+  registerAPI,
+  getUserInfoAPI,
+} from "../ultils/apiURL";
+
 const authService = {
-  login: (user) => {
-    return http.post(loginAPI, user);
+  login: (body) => {
+    return http.post(loginAPI, body);
   },
   logout: () => {
     return http.get(logoutAPI);
   },
-  register: (formInput) => {
-    return http.post(registerAPI, formInput);
+  register: (body) => {
+    return http.post(registerAPI, body);
+  },
+  getUserInfo: (body) => {
+    return http.post(getUserInfoAPI, body);
   },
 };
 

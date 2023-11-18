@@ -1,18 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Form, Select, notification } from "antd";
-import { CustomLabel } from "../../components/CustomComponent";
 import {
-  GeneralInput,
-  PasswordInput,
+  BigInput,
+  BigPasswordInput,
   AddItemButton,
-  CustomDatePicker,
-} from "../../components/FormComponent";
+  BigRangePicker,
+  BigLabel,
+  BigSelect,
+} from "../../components/StyledComponent";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { FIELD_OF_WORK, QUANTITY_EMPLOYEE, ROLES } from "../../ultils/constant";
+import { FIELD_OF_WORK, QUANTITY_EMPLOYEE, ROLE } from "../../ultils/constant";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "./loginSignUpSlice";
-import { registerSuccess, selectAuth } from "../../stores/reducer/authSlice";
+import {
+  register,
+  registerSuccess,
+  selectAuth,
+} from "../../stores/reducer/authSlice";
+import { capitalizeFirstLetter } from "../../ultils/helpFunc";
 
 const Form1 = (props) => {
   const { form, setStep, step } = props;
@@ -30,7 +35,7 @@ const Form1 = (props) => {
     >
       <div className="flex flex-col justify-center">
         <Form.Item
-          label={<CustomLabel>Email:</CustomLabel>}
+          label={<BigLabel>Email:</BigLabel>}
           name="email"
           rules={[
             {
@@ -41,21 +46,21 @@ const Form1 = (props) => {
           ]}
           initialValue={form.getFieldValue(["email"])}
         >
-          <GeneralInput placeholder="Type your email" />
+          <BigInput placeholder="Type your email" />
         </Form.Item>
 
         <Form.Item
-          label={<CustomLabel>Password:</CustomLabel>}
+          label={<BigLabel>Password:</BigLabel>}
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
           initialValue={form.getFieldValue(["password"])}
           hasFeedback
         >
-          <PasswordInput placeholder="Type your password" />
+          <BigPasswordInput placeholder="Type your password" />
         </Form.Item>
 
         <Form.Item
-          label={<CustomLabel>Confirm password:</CustomLabel>}
+          label={<BigLabel>Confirm password:</BigLabel>}
           name="confirmPassword"
           dependencies={["password"]}
           rules={[
@@ -72,27 +77,27 @@ const Form1 = (props) => {
           initialValue={form.getFieldValue(["confirmPassword"])}
           hasFeedback
         >
-          <PasswordInput placeholder="Type your password" />
+          <BigPasswordInput placeholder="Type your password" />
         </Form.Item>
 
         <Form.Item
-          label={<CustomLabel>Select your role: </CustomLabel>}
+          label={<BigLabel>Select your role: </BigLabel>}
           name="role"
           rules={[{ required: true, message: "Please choose your role!" }]}
           initialValue={form.getFieldValue(["role"])}
         >
-          <Select
+          <BigSelect
             placeholder="Choose your role"
             onChange={(value) => {
               form.setFieldValue(["role"], value);
             }}
           >
-            {ROLES.map((item, index) => (
+            {Object.values(ROLE).map((item, index) => (
               <Select.Option value={item} key={index}>
-                {item}
+                {capitalizeFirstLetter(item)}
               </Select.Option>
             ))}
-          </Select>
+          </BigSelect>
         </Form.Item>
 
         <Form.Item>
@@ -130,11 +135,13 @@ const Form2 = (props) => {
       password: form.getFieldValue(["password"]),
       role: form.getFieldValue(["role"]),
       fullName: form.getFieldValue(["fullName"]),
-      titleJob: form.getFieldValue(["titleJob"]),
+      jobTitle: form.getFieldValue(["jobTitle"]),
       fieldOfWork: form.getFieldValue(["fieldOfWork"]),
-      university: form.getFieldValue(["university"]),
-      yearsOfStudy: [start?.getUTCFullYear(), end?.getUTCFullYear()],
-      addressCompany: form.getFieldValue(["addressCompany"]),
+      schoolName: form.getFieldValue(["schoolName"]),
+      yearsOfStudy: start
+        ? [start.getUTCFullYear(), end.getUTCFullYear()]
+        : start,
+      companyAddress: form.getFieldValue(["companyAddress"]),
       numberOfEmployees: form.getFieldValue(["numberOfEmployees"]),
       companyName: form.getFieldValue(["companyName"]),
     };
@@ -178,7 +185,7 @@ const Form2 = (props) => {
       >
         <div className="flex flex-col justify-center">
           <Form.Item
-            label={<CustomLabel>Full name:</CustomLabel>}
+            label={<BigLabel>Full name:</BigLabel>}
             name="fullName"
             rules={[
               {
@@ -188,24 +195,24 @@ const Form2 = (props) => {
             ]}
             initialValue={form.getFieldValue(["fullName"])}
           >
-            <GeneralInput placeholder="Type your name" />
+            <BigInput placeholder="Type your name" />
           </Form.Item>
-          {form.getFieldValue(["role"]) === "Employee" && (
+          {form.getFieldValue(["role"]) === ROLE.EMPLOYEE && (
             <div>
               <Form.Item
-                label={<CustomLabel>Job title:</CustomLabel>}
-                name="titleJob"
-                initialValue={form.getFieldValue(["titleJob"])}
+                label={<BigLabel>Job title:</BigLabel>}
+                name="jobTitl"
+                initialValue={form.getFieldValue(["jobTitle"])}
               >
-                <GeneralInput placeholder="Type your job title" />
+                <BigInput placeholder="Type your job title" />
               </Form.Item>
 
               <Form.Item
-                label={<CustomLabel>Field of work :</CustomLabel>}
+                label={<BigLabel>Field of work :</BigLabel>}
                 name="fieldOfWork"
                 initialValue={form.getFieldValue(["fieldOfWork"])}
               >
-                <Select
+                <BigSelect
                   placeholder="Choose your field of work"
                   mode="tags"
                   dropdownRender={(menu) => (
@@ -213,7 +220,7 @@ const Form2 = (props) => {
                       {menu}
                       <div className="flex gap-2 mt-1">
                         <div className="w-8/12">
-                          <GeneralInput
+                          <BigInput
                             placeholder="Please enter item"
                             ref={inputRef}
                             value={name}
@@ -238,28 +245,28 @@ const Form2 = (props) => {
               </Form.Item>
             </div>
           )}
-          {form.getFieldValue(["role"]) === "Student" && (
+          {form.getFieldValue(["role"]) === ROLE.STUDENT && (
             <div>
               <Form.Item
-                label={<CustomLabel>University: </CustomLabel>}
-                name="university"
-                initialValue={form.getFieldValue(["university"])}
+                label={<BigLabel>School Name: </BigLabel>}
+                name="schoolName"
+                initialValue={form.getFieldValue(["schoolName"])}
               >
-                <GeneralInput placeholder="Type your university name" />
+                <BigInput placeholder="Type your school name" />
               </Form.Item>
               <Form.Item
-                label={<CustomLabel>Years of study: </CustomLabel>}
+                label={<BigLabel>Years of study: </BigLabel>}
                 name="yearsOfStudy"
                 initialValue={form.getFieldValue(["yearsOfStudy"])}
               >
-                <CustomDatePicker picker="year" />
+                <BigRangePicker picker="year" />
               </Form.Item>
             </div>
           )}
-          {form.getFieldValue(["role"]) === "Company" && (
+          {form.getFieldValue(["role"]) === ROLE.COMPANY && (
             <div>
               <Form.Item
-                label={<CustomLabel>Company name:</CustomLabel>}
+                label={<BigLabel>Company name:</BigLabel>}
                 name="companyName"
                 rules={[
                   {
@@ -269,12 +276,12 @@ const Form2 = (props) => {
                 ]}
                 initialValue={form.getFieldValue(["companyName"])}
               >
-                <GeneralInput placeholder="Type your company name" />
+                <BigInput placeholder="Type your company name" />
               </Form.Item>
               <Form.Item
-                label={<CustomLabel>Address company:</CustomLabel>}
-                name="addressCompany"
-                initialValue={form.getFieldValue(["addressCompany"])}
+                label={<BigLabel>Company address:</BigLabel>}
+                name="companyAddress"
+                initialValue={form.getFieldValue(["companyAddress"])}
                 rules={[
                   {
                     required: true,
@@ -282,14 +289,14 @@ const Form2 = (props) => {
                   },
                 ]}
               >
-                <GeneralInput placeholder="Type your address" />
+                <BigInput placeholder="Type your address" />
               </Form.Item>
               <Form.Item
-                label={<CustomLabel>Number of employees: </CustomLabel>}
+                label={<BigLabel>Number of employees: </BigLabel>}
                 name="numberOfEmployees"
                 initialValue={form.getFieldValue(["numberOfEmployees"])}
               >
-                <Select
+                <BigSelect
                   placeholder="Choose your number of employees"
                   onChange={(value) => {
                     form.setFieldValue(["numberOfEmployees"], value);
@@ -300,7 +307,7 @@ const Form2 = (props) => {
                       {item}
                     </Select.Option>
                   ))}
-                </Select>
+                </BigSelect>
               </Form.Item>
             </div>
           )}

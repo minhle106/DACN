@@ -5,12 +5,25 @@ const LOCAL_ITEM = Object.freeze({
 });
 
 const STATUS = Object.freeze({
-  IDLE: "idle",
-  LOADING: "loading",
+  LOADING: "pending",
   ERROR: "error",
+  SUCCESS: "success",
+  IDLE: "idle",
+  FETCHING: "fetching",
+  PAUSED: "paused",
 });
 
-const ROLES = ["Employee", "Student", "Company"];
+const ROLE = Object.freeze({
+  EMPLOYEE: "EMPLOYEE",
+  STUDENT: "STUDENT",
+  COMPANY: "COMPANY",
+});
+
+const GENDER = Object.freeze({
+  MALE: "Male",
+  FEMALE: "Female",
+});
+
 const QUANTITY_EMPLOYEE = [
   "1-10",
   "10-50",
@@ -20,6 +33,7 @@ const QUANTITY_EMPLOYEE = [
   "500-1000",
   "1000+",
 ];
+
 const FIELD_OF_WORK = [
   "Information Technology (IT)",
   "Healthcare",
@@ -43,4 +57,14 @@ const FIELD_OF_WORK = [
   "Graphic Design",
 ];
 
-export { STATUS, ROLES, LOCAL_ITEM, FIELD_OF_WORK, QUANTITY_EMPLOYEE };
+const JOB_TYPE = ["Part-time", "Full-time", "Contract"];
+
+export {
+  STATUS,
+  ROLE,
+  GENDER,
+  LOCAL_ITEM,
+  FIELD_OF_WORK,
+  QUANTITY_EMPLOYEE,
+  JOB_TYPE,
+};
