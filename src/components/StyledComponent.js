@@ -8,6 +8,8 @@ import {
   Pagination,
   Table,
 } from "antd";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 //----------------------------------------------------
 /* LOGIN SIGNUP */
@@ -57,10 +59,10 @@ export const BigSelect = styled(Select)`
   }
 
   border-radius: 4px;
-  height: 3.75rem;
 
   & .ant-select-selector {
     border: 1px solid #c3c3c3 !important;
+    min-height: 3.75rem !important;
   }
 
   & span.ant-select-selection-placeholder {
@@ -86,6 +88,17 @@ export const BigSelect = styled(Select)`
 export const FormSelect = styled(Select)`
   & .ant-select-selector {
     border-radius: 5px !important;
+  }
+`;
+
+export const FormMultipleSelect = styled(Select)`
+  & .ant-select-selector {
+    border-radius: 5px !important;
+  }
+  & span.ant-select-selection-item {
+    background: #f9f0ff !important;
+    color: #531dab !important;
+    border-color: #d3adf7 !important;
   }
 `;
 
@@ -120,7 +133,7 @@ export const CustomButton = styled.button`
   padding: 0.5rem 1rem 0.5rem 1rem;
   border-radius: 0.25rem;
   border: 1px solid #d9d9d9;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 `;
 
 export const CustomTable = styled(Table)`
@@ -243,4 +256,19 @@ export const CustomPaginationNoneBorder = styled(Pagination)`
 export const TextInput = styled(Input)`
   border-radius: 4px;
   padding: 4px;
+`;
+
+export const CustomReactQuill = styled(ReactQuill)`
+  & .ql-editor {
+    width: 100%;
+    height: 140px;
+    overflow: auto;
+    resize: vertical;
+  }
+  & .ql-toolbar.ql-snow {
+    border-radius: 5px 5px 0px 0px;
+  }
+  & .ql-container.ql-snow {
+    border-radius: 0px 0px 5px 5px !important;
+  }
 `;

@@ -1,18 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SignUpForm from "../../../features/loginSignUp/SignUpForm";
 import signUp_img from "../../../assets/images/signup.webp";
 import { Form } from "antd";
 import { CustomSteps } from "../../../components/StyledComponent";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../../stores/reducer/authSlice";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../../route/paths";
 
 const SignUp = () => {
   const [step, setStep] = useState(0);
   const [form] = Form.useForm();
+  const { isLoggedIn } = useSelector(selectAuth);
+  const navigate = useNavigate();
 
   const handleChange = (value) => {
     if (step > value && step !== 2) {
       setStep(value);
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(PATH.HOME);
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="SignUp">

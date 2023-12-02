@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   BigInput,
   BigPasswordInput,
@@ -12,23 +12,28 @@ import { login, selectAuth } from "../../stores/reducer/authSlice";
 import { PATH } from "../../route/paths";
 
 const LoginForm = () => {
-  const { isLoggedIn } = useSelector(selectAuth);
+  const { isLogin } = useSelector(selectAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const inputRef = useRef();
   const handleSubmit = (value) => {
     dispatch(login(value));
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLogin) {
       notification.success({
         message: "Success",
         description: "Logged in successfully!",
       });
       navigate(PATH.HOME);
     }
-  }, [isLoggedIn]);
+  }, [isLogin]);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <Form
@@ -50,7 +55,7 @@ const LoginForm = () => {
           },
         ]}
       >
-        <BigInput placeholder="Type your email" />
+        <BigInput ref={inputRef} placeholder="Type your email" />
       </Form.Item>
 
       <Form.Item

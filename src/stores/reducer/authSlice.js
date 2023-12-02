@@ -15,18 +15,25 @@ const authSlice = createSlice({
   initialState: {
     isLoggedIn: getUserInfo() ? true : false,
     userInfo: getUserInfo() ? getUserInfo() : "{}",
+    isRegister: false,
+    isLogin: false,
   },
   reducers: {
     loginSuccess: (state, action) => {
       state.isLoggedIn = true;
+      state.isLogin = true;
       state.userInfo = action.payload.userInfo;
       setUserInfo(action.payload.userInfo);
     },
     logoutSuccess: (state) => {
       state.isLoggedIn = false;
+      state.isLogin = false;
       state.userInfo = {};
       removeToken();
       removeUserInfo();
+    },
+    setIsRegister: (state, action) => {
+      state.isRegister = action.payload;
     },
   },
 });
@@ -52,34 +59,53 @@ const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
       })
     );
   } catch (e) {
-    notification.error({
+    /* notification.error({
       message: "Failed",
       description: "Email or password is incorrect!",
+    }); */
+    notification.error({
+      message: "Error",
+      description: e.message,
     });
     removeToken();
   }
 });
 
-const register = createAsyncThunk("auth/register", async (formInput) => {
-  try {
-    await authService.register(formInput);
-  } catch (e) {
-    notification.error({
+const register = createAsyncThunk(
+  "auth/register",
+  async ({ formInput, setStep }, thunkAPI) => {
+    try {
+      await authService.register(formInput);
+      thunkAPI.dispatch(setIsRegister(true));
+    } catch (e) {
+      /* notification.error({
       message: "Failed",
       description: "This email has already been registered!",
+    }); */
+      notification.error({
+        message: "Error",
+        description: e.message,
+      });
+      setStep(0);
+    }
+  }
+);
+
+const refreshToken = async () => {
+  try {
+    const response = await authService.refreshToken();
+    const data = response.data;
+    setToken(data);
+  } catch (e) {
+    notification.error({
+      message: "Error",
+      description: e.message,
     });
   }
-});
+};
 
-export const {
-  setLoginStatus,
-  setSignUpStatus,
-  loginSuccess,
-  logoutSuccess,
-  registerSuccess,
-} = authSlice.actions;
-
+export const { loginSuccess, logoutSuccess, setIsRegister } = authSlice.actions;
 export default authSlice.reducer;
 export const selectAuth = (state) => state.auth;
 
-export { login, logout, register };
+export { login, logout, register, refreshToken };

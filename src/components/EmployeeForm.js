@@ -1,29 +1,29 @@
 import { DatePicker, Form, Input, Radio, Select } from "antd";
-import { getAffiliations, getRoles } from "../stores/reducer/authSettingSlice";
+import {
+  getAllAffiliations,
+  getAllRoles,
+} from "../stores/reducer/authSettingSlice";
 import { useQuery } from "@tanstack/react-query";
-import { GENDER, STATUS } from "../ultils/constant";
 import { FormSelect } from "./StyledComponent";
 
-const CreateEmployeeForm = ({ form }) => {
-  const page = 1;
-  const size = 10;
+const EmployeeForm = ({ form, onFinish }) => {
   const { data: roleData } = useQuery({
-    queryKey: ["roles", page, size],
-    queryFn: () => getRoles({ page: page, size: size }),
+    queryKey: ["roles"],
+    queryFn: () => getAllRoles(),
   });
 
   const { data: affiliationData } = useQuery({
-    queryKey: ["affiliations", page, size],
-    queryFn: () => getAffiliations({ page: page, size: size }),
+    queryKey: ["affiliations"],
+    queryFn: () => getAllAffiliations(),
   });
 
   return (
     <Form
       name="employeeForm"
+      onFinish={onFinish}
       form={form}
       layout={"vertical"}
       autoComplete="off"
-      onFinish={() => {}}
     >
       <Form.Item
         label="Email"
@@ -45,7 +45,6 @@ const CreateEmployeeForm = ({ form }) => {
           {
             required: true,
             message: "Please input your password!",
-            type: "email",
           },
         ]}
       >
@@ -71,7 +70,7 @@ const CreateEmployeeForm = ({ form }) => {
 
       <Form.Item
         label="Role"
-        name="roleId"
+        name="roleName"
         rules={[
           {
             required: true,
@@ -79,9 +78,9 @@ const CreateEmployeeForm = ({ form }) => {
           },
         ]}
       >
-        <FormSelect size="large" listHeight={400}>
+        <FormSelect size="large" listHeight={250}>
           {roleData?.listContent?.map((item) => (
-            <Select.Option value={item.roleId} key={item.roleId}>
+            <Select.Option value={item.roleName} key={item.roleName}>
               {item.roleName}
             </Select.Option>
           ))}
@@ -89,7 +88,7 @@ const CreateEmployeeForm = ({ form }) => {
       </Form.Item>
       <Form.Item
         label="Affiliation"
-        name="affiliationId"
+        name="affiliationName"
         rules={[
           {
             required: true,
@@ -97,18 +96,33 @@ const CreateEmployeeForm = ({ form }) => {
           },
         ]}
       >
-        <FormSelect size="large" listHeight={400}>
+        <FormSelect size="large" listHeight={250}>
           {affiliationData?.listContent?.map((item) => (
-            <Select.Option value={item.affiliationId} key={item.affiliationId}>
+            <Select.Option
+              value={item.affiliationName}
+              key={item.affiliationName}
+            >
               {item.affiliationName}
             </Select.Option>
           ))}
         </FormSelect>
       </Form.Item>
       <Form.Item
+        label="Day of birth"
+        name="dob"
+        rules={[
+          {
+            required: true,
+            message: "Please select day of birth!",
+          },
+        ]}
+      >
+        <DatePicker name="dob" style={{ width: "100%" }} size={"large"} />
+      </Form.Item>
+      <Form.Item
         label="Gender"
-        name="sex"
-        initialValue={GENDER.MALE}
+        name="gender"
+        initialValue="Male"
         rules={[
           {
             required: true,
@@ -116,9 +130,9 @@ const CreateEmployeeForm = ({ form }) => {
           },
         ]}
       >
-        <Radio.Group name="sex">
-          <Radio value={GENDER.MALE}>Male</Radio>
-          <Radio value={GENDER.FEMALE}>Female</Radio>
+        <Radio.Group name="gender">
+          <Radio value="Male">Male</Radio>
+          <Radio value="Female">Female</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item
@@ -137,4 +151,4 @@ const CreateEmployeeForm = ({ form }) => {
   );
 };
 
-export default CreateEmployeeForm;
+export default EmployeeForm;

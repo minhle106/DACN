@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectAuth } from "../stores/reducer/authSlice";
+import { PATH } from "./paths";
 
 const RequireAuth = ({ children }) => {
   const { userInfo } = useSelector(selectAuth);
@@ -10,7 +11,7 @@ const RequireAuth = ({ children }) => {
 
   useEffect(() => {
     if (flag && !userInfo) {
-      navigate("/unauthorized");
+      navigate(PATH.UNAUTHORIZED);
     }
     setFlag(true);
   }, [userInfo]);

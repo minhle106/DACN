@@ -4,38 +4,64 @@ import {
   CustomPagination,
   CustomTable,
 } from "../../components/StyledComponent";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createEmployee,
   getEmployees,
 } from "../../stores/reducer/employeeSlice";
-import { GENDER, STATUS } from "../../ultils/constant";
-import { Drawer, Form, Tag } from "antd";
+import { STATUS } from "../../ultils/constant";
+import { Drawer, Form, Tag, notification } from "antd";
 import moment from "moment";
 import AddButton from "../../components/AddButton";
-import CreateEmployeeForm from "../../components/CreateEmployeeForm";
+import EmployeeForm from "../../components/EmployeeForm";
 
 const EmployeeManagement = () => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
-  const { form } = Form.useForm();
+  const [form] = Form.useForm();
+  const queryClient = useQueryClient();
 
-  const { data: employeeData, status: employeeStatus } = useQuery({
+  const { data: employeeData, fetchStatus: employeeFetchStatus } = useQuery({
     queryKey: ["employees", page, size],
     queryFn: () => getEmployees({ page: page, size: size }),
+    staleTime: 1 * 60 * 1000,
   });
 
   const { mutate: createEmployeeMutation } = useMutation({
     mutationFn: (body) => createEmployee(body),
   });
 
-  const tableData = employeeData?.listContent?.map((item, index) => ({
+  const tableData = employeeData?.listContent?.map((item) => ({
     ...item,
-    key: index,
+    key: item.code,
   }));
 
-  const handleCreateEmployee = () => {};
+  const onFinish = (values) => {
+    createEmployeeMutation(
+      {
+        ...values,
+        birthDate: moment(new Date(values.birthDate)).format("YYYY-MM-DD"),
+        joinAt: moment(new Date(values.joinAt)).format("YYYY-MM-DDTHH:mm:ss"),
+      },
+      {
+        onSuccess: () => {
+          form.resetFields();
+          queryClient.refetchQueries("employees");
+          notification.success({
+            message: "Success",
+            description: "Create employee successfully!",
+          });
+        },
+        onError: (error) => {
+          notification.error({
+            message: "Error",
+            description: error.message,
+          });
+        },
+      }
+    );
+  };
 
   const onChangePagination = (page, pageSize) => {
     setPage(page);
@@ -68,7 +94,6 @@ const EmployeeManagement = () => {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
-      render: (text) => (text === "MALE" ? GENDER.MALE : GENDER.FEMALE),
     },
     {
       title: "Role",
@@ -77,8 +102,8 @@ const EmployeeManagement = () => {
       render: (text) => {
         return (
           <>
-            {text?.map((item) => (
-              <Tag color="purple" className="mb-[2px]">
+            {text?.map((item, index) => (
+              <Tag color="purple" className="mb-[2px]" key={index}>
                 {item}
               </Tag>
             ))}
@@ -93,8 +118,8 @@ const EmployeeManagement = () => {
       render: (text) => {
         return (
           <>
-            {text?.map((item) => (
-              <Tag color="purple" className="mb-[2px]">
+            {text?.map((item, index) => (
+              <Tag color="purple" className="mb-[2px]" key={index}>
                 {item}
               </Tag>
             ))}
@@ -141,6 +166,8 @@ const EmployeeManagement = () => {
             </CustomButton>
             <CustomButton
               onClick={() => setOpen(false)}
+              type="submit"
+              form="employeeForm"
               className="w-6/12 bg-[#8f83ae] hover:bg-[#8f83aeb3] text-lg text-white"
             >
               Create
@@ -148,7 +175,7 @@ const EmployeeManagement = () => {
           </div>,
         ]}
       >
-        <CreateEmployeeForm form={form} />
+        <EmployeeForm form={form} onFinish={onFinish} />
       </Drawer>
 
       <div className="flex justify-between items-center mb-4">
@@ -157,11 +184,11 @@ const EmployeeManagement = () => {
       </div>
 
       <CustomTable
-        loading={employeeStatus === STATUS.LOADING}
+        loading={employeeFetchStatus === STATUS.FETCHING}
         columns={columns}
         dataSource={tableData}
         pagination={false}
-        scroll={{ y: `calc(100vh - 315px)`, x: 1300 }}
+        scroll={{ y: `calc(100vh - 315px)`, x: 1400 }}
       />
 
       <CustomPagination

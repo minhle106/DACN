@@ -20,7 +20,7 @@ import {
 export const routes = [
   {
     element: <Home />,
-    path: PATH.HOME1,
+    path: PATH.ROOT,
   },
   {
     element: <Home />,

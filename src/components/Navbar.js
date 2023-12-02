@@ -1,16 +1,32 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 import { logout, selectAuth } from "../stores/reducer/authSlice";
 import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
 import { PATH } from "../route/paths";
+import { CustomButton } from "./StyledComponent";
+import { ROLE } from "../ultils/constant";
 
 const Navbar = () => {
   const styleLink = `px-4 text-lg hover:border-b-2 border-gray-500 flex items-center`;
   const [active, setActive] = useState("");
   const dispatch = useDispatch();
   const { isLoggedIn, userInfo } = useSelector(selectAuth);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const notAllowAcessBoard = [ROLE.EMPLOYEE, ROLE.STUDENT, ROLE.STAFF];
+
+  useEffect(() => {
+    if (location.pathname === PATH.COMMUNITY) {
+      setActive("community");
+    } else if (location.pathname === PATH.JOB) {
+      setActive("job");
+    } else if (location.pathname === PATH.COMPANY) {
+      setActive("company");
+    }
+  }, []);
 
   return (
     <div className="flex h-[4.5rem] shadow fixed w-full bg-white top-0 z-10">
@@ -56,24 +72,29 @@ const Navbar = () => {
           >
             Company
           </Link>
-          {userInfo?.roles && userInfo?.roles[0] === "COMPANY" && (
-            <Link
-              to="/dashboard"
-              onClick={() => setActive("dashboard")}
-              className={
-                active === "dashboard"
-                  ? styleLink + " font-semibold border-b-2"
-                  : styleLink
-              }
-            >
-              Dashboard
-            </Link>
-          )}
+
+          {userInfo?.roles &&
+            !userInfo?.roles.some((role) =>
+              notAllowAcessBoard.includes(role)
+            ) && (
+              <Link
+                to="/dashboard"
+                onClick={() => setActive("dashboard")}
+                className={
+                  active === "dashboard"
+                    ? styleLink + " font-semibold border-b-2"
+                    : styleLink
+                }
+              >
+                Dashboard
+              </Link>
+            )}
         </div>
+
         {isLoggedIn ? (
           <div className="flex items-center gap-5">
             <div>{userInfo?.fullName}</div>
-            <div
+            <CustomButton
               onClick={() => {
                 dispatch(logout());
                 notification.success({
@@ -81,28 +102,34 @@ const Navbar = () => {
                   description: "Logout successful!",
                 });
               }}
-              className="cursor-pointer flex items-center px-4 py-2 bg-black font-semibold text-white hover:text-black me-4 rounded hover:bg-gray-200 hover:border-2 hover:border-black"
+              className="flex items-center bg-black font-semibold text-white hover:text-black me-4 hover:bg-gray-200 hover:border-black"
             >
               <LogoutOutlined className="me-2b text-xl bg-black bg-transparent me-2" />
 
               <div>Logout</div>
-            </div>
+            </CustomButton>
           </div>
         ) : (
           <div className="flex items-center">
-            <Link
-              to={PATH.LOGIN}
-              className="flex items center px-4 py-2 bg-black font-semibold text-white hover:text-black me-4 rounded hover:bg-gray-200 hover:border-2 hover:border-black"
+            <CustomButton
+              onClick={() => {
+                navigate(PATH.LOGIN);
+                setActive("");
+              }}
+              className="flex items-center bg-black font-semibold text-white hover:text-black me-4 hover:bg-gray-200 hover:border hover:border-black"
             >
               <LoginOutlined className="me-2b text-xl bg-black bg-transparent me-2"></LoginOutlined>
               <div>Login</div>
-            </Link>
-            <Link
-              to={PATH.SIGN_UP}
-              className="px-4 py-2 rounded border-2 border-black hover:text-white hover:bg-black font-semibold"
+            </CustomButton>
+            <CustomButton
+              onClick={() => {
+                navigate(PATH.SIGN_UP);
+                setActive("");
+              }}
+              className="!border-black hover:text-white hover:bg-black font-semibold"
             >
               Sign Up
-            </Link>
+            </CustomButton>
           </div>
         )}
       </div>

@@ -3,6 +3,12 @@ import { affiliationsAPI, rolesAPI, featuresAPI } from "../ultils/apiURL";
 import http from "../ultils/httpConfig";
 
 const authSettingService = {
+  getAllAffiliations: () => {
+    return http.get(`all-${affiliationsAPI}`);
+  },
+  getAllRoles: () => {
+    return http.get(`all-${rolesAPI}`);
+  },
   getAffiliations: (params) => {
     const qs = queryString.stringify(params);
     return http.get(`${affiliationsAPI}?${qs}`);

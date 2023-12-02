@@ -12,18 +12,19 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { FIELD_OF_WORK, QUANTITY_EMPLOYEE, ROLE } from "../../ultils/constant";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  register,
-  registerSuccess,
-  selectAuth,
-} from "../../stores/reducer/authSlice";
+import { register, selectAuth } from "../../stores/reducer/authSlice";
 import { capitalizeFirstLetter } from "../../ultils/helpFunc";
 
 const Form1 = (props) => {
   const { form, setStep, step } = props;
+  const inputRef = useRef();
   const handleSubmit = () => {
     setStep(step + 1);
   };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <Form
@@ -46,7 +47,7 @@ const Form1 = (props) => {
           ]}
           initialValue={form.getFieldValue(["email"])}
         >
-          <BigInput placeholder="Type your email" />
+          <BigInput ref={inputRef} placeholder="Type your email" />
         </Form.Item>
 
         <Form.Item
@@ -114,17 +115,18 @@ const Form1 = (props) => {
 };
 
 const Form2 = (props) => {
-  const { isRegister } = useSelector(selectAuth);
   const dispatch = useDispatch();
   const { form, setStep, step } = props;
-  const [items, setItems] = useState(FIELD_OF_WORK);
-  const [name, setName] = useState("");
+  const [fieldOfWork, setFieldOfWork] = useState(FIELD_OF_WORK);
+  const [fieldText, setFieldText] = useState("");
   const inputRef = useRef();
+  const addRef = useRef();
+  const { isRegister } = useSelector(selectAuth);
 
   const handleRegister = () => {
     let start, end;
     if (
-      form.getFieldValue(["role"]) === "Student" &&
+      form.getFieldValue(["role"]) === ROLE.STUDENT &&
       form.getFieldValue(["yearsOfStudy"])
     ) {
       start = new Date(String(form.getFieldValue(["yearsOfStudy"])[0]));
@@ -145,9 +147,20 @@ const Form2 = (props) => {
       numberOfEmployees: form.getFieldValue(["numberOfEmployees"]),
       companyName: form.getFieldValue(["companyName"]),
     };
-    dispatch(register(formInput));
+    dispatch(register({ formInput, setStep }));
   };
 
+  const addFieldOfWork = (e) => {
+    e.preventDefault();
+    if (fieldText) {
+      setFieldOfWork([...fieldOfWork, fieldText]);
+      setFieldText("");
+    }
+  };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   useEffect(() => {
     if (isRegister) {
       notification.success({
@@ -155,24 +168,8 @@ const Form2 = (props) => {
         description: "Registration successful!",
       });
       setStep(step + 1);
-      dispatch(registerSuccess(false));
     }
   }, [isRegister]);
-
-  const onNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const addItem = (e) => {
-    e.preventDefault();
-    if (name) {
-      setItems([...items, name]);
-      setName("");
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
-    }
-  };
 
   return (
     <div className="SignUpForm">
@@ -195,8 +192,9 @@ const Form2 = (props) => {
             ]}
             initialValue={form.getFieldValue(["fullName"])}
           >
-            <BigInput placeholder="Type your name" />
+            <BigInput ref={inputRef} placeholder="Type your name" />
           </Form.Item>
+
           {form.getFieldValue(["role"]) === ROLE.EMPLOYEE && (
             <div>
               <Form.Item
@@ -215,6 +213,7 @@ const Form2 = (props) => {
                 <BigSelect
                   placeholder="Choose your field of work"
                   mode="tags"
+                  onClick={() => addRef.current.focus()}
                   dropdownRender={(menu) => (
                     <>
                       {menu}
@@ -222,15 +221,15 @@ const Form2 = (props) => {
                         <div className="w-8/12">
                           <BigInput
                             placeholder="Please enter item"
-                            ref={inputRef}
-                            value={name}
-                            onChange={onNameChange}
+                            ref={addRef}
+                            value={fieldText}
+                            onChange={(e) => setFieldText(e.target.value)}
                             style={{ padding: "0.5rem" }}
                           />
                         </div>
                         <div className="w-4/12">
                           <AddItemButton
-                            onClick={addItem}
+                            onClick={addFieldOfWork}
                             style={{ padding: "0.5rem" }}
                           >
                             <PlusOutlined />
@@ -240,11 +239,15 @@ const Form2 = (props) => {
                       </div>
                     </>
                   )}
-                  options={items.map((item) => ({ label: item, value: item }))}
+                  options={fieldOfWork?.map((item) => ({
+                    label: item,
+                    value: item,
+                  }))}
                 />
               </Form.Item>
             </div>
           )}
+
           {form.getFieldValue(["role"]) === ROLE.STUDENT && (
             <div>
               <Form.Item
@@ -263,6 +266,7 @@ const Form2 = (props) => {
               </Form.Item>
             </div>
           )}
+
           {form.getFieldValue(["role"]) === ROLE.COMPANY && (
             <div>
               <Form.Item

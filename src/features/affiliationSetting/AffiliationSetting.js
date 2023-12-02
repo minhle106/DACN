@@ -10,7 +10,12 @@ import {
   CheckOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryCache,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   createAffiliation,
   updateAffiliation,
@@ -31,14 +36,17 @@ const AffiliationSetting = () => {
   const refAffiliation = useRef();
   const queryClient = useQueryClient();
 
-  const { data: affiliationData, status: affiliationStatus } = useQuery({
-    queryKey: ["affiliations", page, size],
-    queryFn: () => getAffiliations({ page: page, size: size }),
-  });
+  const { data: affiliationData, fetchStatus: affiliationFetchStatus } =
+    useQuery({
+      queryKey: ["affiliations", page, size],
+      queryFn: () => getAffiliations({ page: page, size: size }),
+      staleTime: 1 * 60 * 1000,
+    });
 
   const { data: featureData, status: featureStatus } = useQuery({
     queryKey: ["features"],
     queryFn: () => getFeatures(),
+    staleTime: Infinity,
   });
 
   const { mutate: createAffiliationMutation } = useMutation({
@@ -281,7 +289,7 @@ const AffiliationSetting = () => {
       <CustomTable
         ref={refAffiliation}
         loading={
-          affiliationStatus === STATUS.LOADING ||
+          affiliationFetchStatus === STATUS.FETCHING ||
           featureStatus === STATUS.LOADING
         }
         columns={columns}

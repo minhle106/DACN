@@ -1,6 +1,30 @@
 import { notification } from "antd";
 import authSettingService from "../../services/authSettingService";
 
+const getAllAffiliations = async () => {
+  try {
+    const response = await authSettingService.getAllAffiliations();
+    return response.data;
+  } catch (e) {
+    notification.error({
+      message: "Error",
+      description: e.message,
+    });
+  }
+};
+
+const getAllRoles = async () => {
+  try {
+    const response = await authSettingService.getAllRoles();
+    return response.data;
+  } catch (e) {
+    notification.error({
+      message: "Error",
+      description: e.message,
+    });
+  }
+};
+
 const getAffiliations = async (params) => {
   try {
     const response = await authSettingService.getAffiliations(params);
@@ -68,6 +92,8 @@ const getFeatures = async () => {
 };
 
 export {
+  getAllAffiliations,
+  getAllRoles,
   getAffiliations,
   createAffiliation,
   updateAffiliation,

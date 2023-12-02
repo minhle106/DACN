@@ -6,7 +6,6 @@ const loginAPI = `auth/authenticate`;
 const logoutAPI = `auth/logout`;
 const registerAPI = `auth/register`;
 const getUserInfoAPI = `common/user-info`;
-
 const jobsAPI = `company/jobs`;
 const affiliationsAPI = `affiliations`;
 const rolesAPI = `roles`;

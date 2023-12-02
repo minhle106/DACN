@@ -36,11 +36,13 @@ const RoleSetting = () => {
   const { data: featureData, status: featureStatus } = useQuery({
     queryKey: ["features"],
     queryFn: () => getFeatures(),
+    staleTime: Infinity,
   });
 
-  const { data: roleData, status: roleStatus } = useQuery({
+  const { data: roleData, fetchStatus: roleFetchStatus } = useQuery({
     queryKey: ["roles", page, size],
     queryFn: () => getRoles({ page: page, size: size }),
+    staleTime: 1 * 60 * 1000,
   });
 
   const { mutate: createRoleMutation } = useMutation({
@@ -135,7 +137,6 @@ const RoleSetting = () => {
         return { ...item, listAuthorization };
       });
 
-    console.log({ listContent: updatedData });
     updateRoleMutation(
       { listContent: updatedData },
       {
@@ -208,6 +209,7 @@ const RoleSetting = () => {
               deleteFeature: item.deleteFeature,
             };
           });
+
           return row;
         })
       );
@@ -236,7 +238,8 @@ const RoleSetting = () => {
       <CustomTable
         ref={refRole}
         loading={
-          roleStatus === STATUS.LOADING || featureStatus === STATUS.LOADING
+          featureStatus === STATUS.LOADING ||
+          roleFetchStatus === STATUS.FETCHING
         }
         dataSource={tableData}
         pagination={false}
@@ -273,8 +276,9 @@ const RoleSetting = () => {
           }}
         />
 
-        {featureData?.listContent?.map((item) => (
+        {featureData?.listContent?.map((item, index) => (
           <ColumnGroup
+            key={index}
             title={<div className="text-center">{item.nameFeature}</div>}
           >
             <Column

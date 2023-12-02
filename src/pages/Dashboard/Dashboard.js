@@ -9,7 +9,7 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Layout, Button, theme, notification } from "antd";
-import { MenuDashboard } from "../../components/StyledComponent";
+import { CustomButton, MenuDashboard } from "../../components/StyledComponent";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../route/paths";
 import { useDispatch } from "react-redux";
@@ -117,7 +117,7 @@ const Dashboard = () => {
                 height: 64,
               }}
             />
-            <div
+            <CustomButton
               onClick={() => {
                 dispatch(logout());
                 notification.success({
@@ -130,11 +130,11 @@ const Dashboard = () => {
                 width: 100,
                 height: 40,
               }}
-              className="cursor-pointer flex items-center px-4 py-2 bg-black font-semibold text-white hover:text-black me-4 rounded hover:bg-gray-200 hover:border-2 hover:border-black"
+              className="flex items-center bg-black font-semibold text-white hover:text-black me-4 hover:bg-gray-200 hover:border-black"
             >
               <LogoutOutlined className="me-2b text-xl bg-black bg-transparent me-2" />
               <div>Logout</div>
-            </div>
+            </CustomButton>
           </div>
         </Header>
         <Content

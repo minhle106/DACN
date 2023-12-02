@@ -1,23 +1,23 @@
 import http from "../ultils/httpConfig";
-import { CRUDJobsAPI } from "../ultils/apiURL";
+import { jobsAPI } from "../ultils/apiURL";
 import queryString from "query-string";
 
 const jobService = {
-  createJob: (body) => {
-    return http.post(CRUDJobsAPI, body);
-  },
   getJobs: (params) => {
     const qs = queryString.stringify(params);
-    return http.get(`${CRUDJobsAPI}?${qs}`);
+    return http.get(`${jobsAPI}?${qs}`);
   },
-  getJob: (jobId) => {
-    return http.get(`${CRUDJobsAPI}/${jobId}`);
+  getJob: (params) => {
+    return http.get(`${jobsAPI}/${params}`);
   },
-  updateJob: (jobId, body) => {
-    return http.put(`${CRUDJobsAPI}/${jobId}`, body);
+  createJob: (body) => {
+    return http.post(jobsAPI, body);
   },
-  deleteJob: (jobId) => {
-    return http.delete(`${CRUDJobsAPI}/${jobId}`);
+  updateJob: (params, body) => {
+    return http.put(`${jobsAPI}/${params}`, body);
+  },
+  deleteJob: (params) => {
+    return http.delete(`${jobsAPI}/${params}`);
   },
 };
 

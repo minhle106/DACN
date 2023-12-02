@@ -1,5 +1,5 @@
 export const PATH = Object.freeze({
-  HOME1: "/",
+  ROOT: "/",
   HOME: "/home",
   JOB: "/home/jobs",
   COMMUNITY: "/home/community",
