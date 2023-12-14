@@ -94,6 +94,7 @@ const getFeatures = async () => {
 export {
   getAllAffiliations,
   getAllRoles,
+  getFeatures,
   getAffiliations,
   createAffiliation,
   updateAffiliation,
@@ -102,5 +103,4 @@ export {
   createRole,
   updateRole,
   deleteRole,
-  getFeatures,
 };

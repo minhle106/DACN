@@ -30,6 +30,11 @@ root.render(
               token: {
                 fontFamily: "'Poppins', sans-serif",
               },
+              components: {
+                Radio: {
+                  dotSize: 8,
+                },
+              },
             }}
           >
             <App />

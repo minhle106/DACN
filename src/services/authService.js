@@ -4,7 +4,6 @@ import {
   loginAPI,
   logoutAPI,
   registerAPI,
-  getUserInfoAPI,
   refreshTokenAPI,
   BASE_URL,
 } from "../ultils/apiURL";
@@ -34,9 +33,6 @@ const authService = {
   },
   register: (body) => {
     return http.post(registerAPI, body);
-  },
-  getUserInfo: (body) => {
-    return http.post(getUserInfoAPI, body);
   },
   refreshToken: () => {
     return axios_config.post(refreshTokenAPI);

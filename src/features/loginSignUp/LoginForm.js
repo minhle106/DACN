@@ -8,11 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { notification, Form } from "antd";
 import { useNavigate } from "react-router-dom";
-import { login, selectAuth } from "../../stores/reducer/authSlice";
+import {
+  login,
+  selectAuth,
+  setIsRegister,
+} from "../../stores/reducer/authSlice";
 import { PATH } from "../../route/paths";
 
 const LoginForm = () => {
-  const { isLogin } = useSelector(selectAuth);
+  const { isLogin, isRegister } = useSelector(selectAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -27,7 +31,10 @@ const LoginForm = () => {
         message: "Success",
         description: "Logged in successfully!",
       });
-      navigate(PATH.HOME);
+      navigate(PATH.COMMUNITY);
+    }
+    if (isRegister) {
+      dispatch(setIsRegister(false));
     }
   }, [isLogin]);
 
@@ -66,13 +73,13 @@ const LoginForm = () => {
       >
         <BigPasswordInput placeholder="Type your password" />
       </Form.Item>
-      <Link className="text-teal-600 font-semibold hover:text-teal-800">
+      <Link className="text-blue-800 font-semibold hover:text-blue-900">
         Forgot password?
       </Link>
       <Form.Item>
         <button
           type="submit"
-          className="mt-4 py-3 border w-[100%] bg-teal-600 rounded-full text-white font-semibold hover:bg-teal-700"
+          className="mt-4 py-3 border w-[100%] bg-blue-700 rounded-lg text-white font-semibold hover:bg-blue-800"
         >
           Sign In
         </button>

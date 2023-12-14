@@ -1,7 +1,8 @@
 import React from "react";
+import CommingSoon from "../../CommingSoon";
 
 const Companies = () => {
-  return <div>Company</div>;
+  return <CommingSoon />;
 };
 
 export default Companies;

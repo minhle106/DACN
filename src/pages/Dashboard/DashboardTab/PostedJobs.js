@@ -1,8 +1,8 @@
 import React from "react";
-import JobManagement from "../../../features/jobManagement/JobManagement";
+import JobManagementFeture from "../../../features/jobManagement/JobManagement";
 
 const PostedJobs = () => {
-  return <JobManagement />;
+  return <JobManagementFeture />;
 };
 
 export default PostedJobs;

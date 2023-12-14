@@ -7,8 +7,8 @@ import {
   setToken,
 } from "../../ultils/helpFunc";
 import { notification } from "antd";
-import { LOCAL_ITEM } from "../../ultils/constant";
 import authService from "../../services/authService";
+import userService from "../../services/userService";
 
 const authSlice = createSlice({
   name: "auth",
@@ -17,6 +17,7 @@ const authSlice = createSlice({
     userInfo: getUserInfo() ? getUserInfo() : "{}",
     isRegister: false,
     isLogin: false,
+    authorized: [],
   },
   reducers: {
     loginSuccess: (state, action) => {
@@ -35,6 +36,9 @@ const authSlice = createSlice({
     setIsRegister: (state, action) => {
       state.isRegister = action.payload;
     },
+    setAuthorized: (state, action) => {
+      state.authorized = action.payload;
+    },
   },
 });
 
@@ -49,9 +53,7 @@ const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
     const data = response.data;
     setToken(data);
 
-    const responseUserInfo = await authService.getUserInfo({
-      accessToken: localStorage.getItem(LOCAL_ITEM.ACCESS_TOKEN),
-    });
+    const responseUserInfo = await userService.getUserInfo();
 
     thunkAPI.dispatch(
       loginSuccess({
@@ -104,7 +106,8 @@ const refreshToken = async () => {
   }
 };
 
-export const { loginSuccess, logoutSuccess, setIsRegister } = authSlice.actions;
+export const { loginSuccess, logoutSuccess, setIsRegister, setAuthorized } =
+  authSlice.actions;
 export default authSlice.reducer;
 export const selectAuth = (state) => state.auth;
 

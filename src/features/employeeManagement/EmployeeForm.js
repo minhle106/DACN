@@ -2,9 +2,9 @@ import { DatePicker, Form, Input, Radio, Select } from "antd";
 import {
   getAllAffiliations,
   getAllRoles,
-} from "../stores/reducer/authSettingSlice";
+} from "../../stores/reducer/authSettingSlice";
 import { useQuery } from "@tanstack/react-query";
-import { FormSelect } from "./StyledComponent";
+import { FormSelect } from "../../components/StyledComponent";
 
 const EmployeeForm = ({ form, onFinish }) => {
   const { data: roleData } = useQuery({

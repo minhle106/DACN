@@ -1,135 +1,135 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 import { logout, selectAuth } from "../stores/reducer/authSlice";
-import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
+import { LogoutOutlined } from "@ant-design/icons";
 import { PATH } from "../route/paths";
 import { CustomButton } from "./StyledComponent";
 import { ROLE } from "../ultils/constant";
+import JobCascadeLogo from "../assets/images/JobCascadeLogo.png";
+import { selectSystem, setActiveKey } from "../stores/reducer/systemSlice";
+import UserDropDown from "./UserDropdown";
 
 const Navbar = () => {
-  const styleLink = `px-4 text-lg hover:border-b-2 border-gray-500 flex items-center`;
-  const [active, setActive] = useState("");
+  const { activeKey } = useSelector(selectSystem);
   const dispatch = useDispatch();
   const { isLoggedIn, userInfo } = useSelector(selectAuth);
-  const navigate = useNavigate();
   const location = useLocation();
 
   const notAllowAcessBoard = [ROLE.EMPLOYEE, ROLE.STUDENT, ROLE.STAFF];
+  const styleLink = `px-4 text-lg hover:border-b-2 border-gray-500 flex items-center`;
 
   useEffect(() => {
     if (location.pathname === PATH.COMMUNITY) {
-      setActive("community");
+      dispatch(setActiveKey("community"));
     } else if (location.pathname === PATH.JOB) {
-      setActive("job");
+      dispatch(setActiveKey("job"));
     } else if (location.pathname === PATH.COMPANY) {
-      setActive("company");
+      dispatch(setActiveKey("company"));
     }
   }, []);
 
   return (
-    <div className="flex h-[4.5rem] shadow fixed w-full bg-white top-0 z-10">
-      <div className="container mx-auto px-[1rem] flex justify-between items-center h-full">
-        <div className="">
-          <img
-            className="w-[10rem]"
-            src="https://wallpapercave.com/wp/wp8864237.png"
-            alt="logo"
-          />
-        </div>
-        <div className="h-full flex">
-          <Link
-            to={PATH.COMMUNITY}
-            onClick={() => setActive("community")}
-            className={
-              active === "community"
-                ? styleLink + " font-semibold border-b-2"
-                : styleLink
-            }
-          >
-            Community
-          </Link>
-          <Link
-            to={PATH.JOB}
-            onClick={() => setActive("job")}
-            className={
-              active === "job"
-                ? styleLink + " font-semibold border-b-2"
-                : styleLink
-            }
-          >
-            Job
-          </Link>
-          <Link
-            to={PATH.COMPANY}
-            onClick={() => setActive("company")}
-            className={
-              active === "company"
-                ? styleLink + " font-semibold border-b-2"
-                : styleLink
-            }
-          >
-            Company
-          </Link>
-
-          {userInfo?.roles &&
-            !userInfo?.roles.some((role) =>
-              notAllowAcessBoard.includes(role)
-            ) && (
+    <div className="h-[68px] shadow fixed w-full bg-white top-0 z-10 px-[42px]">
+      <div className="flex justify-between items-center h-full">
+        <div className="flex gap-[50px] items-center h-full">
+          <img className="w-[10rem]" src={JobCascadeLogo} alt="Logo" />
+          <div className="h-full flex">
+            <Link
+              to={PATH.COMMUNITY}
+              onClick={() => dispatch(setActiveKey("community"))}
+              className={
+                activeKey === "community"
+                  ? styleLink + " font-semibold border-b-2"
+                  : styleLink
+              }
+            >
+              <span className="text-xl">Community</span>
+            </Link>
+            <Link
+              to={PATH.JOB}
+              onClick={() => dispatch(setActiveKey("job"))}
+              className={
+                activeKey === "job"
+                  ? styleLink + " font-semibold border-b-2"
+                  : styleLink
+              }
+            >
+              <span className="text-xl">Explore Jobs</span>
+            </Link>
+            <Link
+              to={PATH.COMPANY}
+              onClick={() => dispatch(setActiveKey("company"))}
+              className={
+                activeKey === "company"
+                  ? styleLink + " font-semibold border-b-2"
+                  : styleLink
+              }
+            >
+              <span className="text-xl">Company Reviews</span>
+            </Link>
+            {isLoggedIn && (
               <Link
-                to="/dashboard"
-                onClick={() => setActive("dashboard")}
+                to={PATH.CV_BUILDER}
+                onClick={() => dispatch(setActiveKey("cvbuider"))}
                 className={
-                  active === "dashboard"
+                  activeKey === "cvbuider"
                     ? styleLink + " font-semibold border-b-2"
                     : styleLink
                 }
               >
-                Dashboard
+                <span className="text-xl">CV Builder</span>
               </Link>
             )}
+
+            {userInfo?.roles &&
+              !userInfo?.roles.some((role) =>
+                notAllowAcessBoard.includes(role)
+              ) && (
+                <Link
+                  to="/dashboard"
+                  onClick={() => dispatch(setActiveKey("dashboard"))}
+                  className={
+                    activeKey === "dashboard"
+                      ? styleLink + " font-semibold border-b-2"
+                      : styleLink
+                  }
+                >
+                  <span className="text-xl">Dashboard</span>
+                </Link>
+              )}
+          </div>
         </div>
 
         {isLoggedIn ? (
-          <div className="flex items-center gap-5">
-            <div>{userInfo?.fullName}</div>
-            <CustomButton
-              onClick={() => {
-                dispatch(logout());
-                notification.success({
-                  message: "Success",
-                  description: "Logout successful!",
-                });
-              }}
-              className="flex items-center bg-black font-semibold text-white hover:text-black me-4 hover:bg-gray-200 hover:border-black"
-            >
-              <LogoutOutlined className="me-2b text-xl bg-black bg-transparent me-2" />
-
-              <div>Logout</div>
-            </CustomButton>
-          </div>
+          <UserDropDown />
         ) : (
-          <div className="flex items-center">
-            <CustomButton
-              onClick={() => {
-                navigate(PATH.LOGIN);
-                setActive("");
-              }}
-              className="flex items-center bg-black font-semibold text-white hover:text-black me-4 hover:bg-gray-200 hover:border hover:border-black"
+          <div className="h-full flex gap-[15px]">
+            <Link
+              to={PATH.LOGIN}
+              onClick={() => dispatch(setActiveKey("login"))}
+              className={
+                activeKey === "login"
+                  ? styleLink + " font-semibold border-b-2"
+                  : styleLink
+              }
             >
-              <LoginOutlined className="me-2b text-xl bg-black bg-transparent me-2"></LoginOutlined>
-              <div>Login</div>
-            </CustomButton>
-            <CustomButton
-              onClick={() => {
-                navigate(PATH.SIGN_UP);
-                setActive("");
-              }}
-              className="!border-black hover:text-white hover:bg-black font-semibold"
+              <span className="text-xl text-blue-900 font-semibold">Login</span>
+            </Link>
+            <Link
+              to={PATH.SIGN_UP}
+              onClick={() => dispatch(setActiveKey("register"))}
+              className={
+                activeKey === "register"
+                  ? styleLink + " font-semibold border-b-2"
+                  : styleLink
+              }
             >
-              Sign Up
-            </CustomButton>
+              <span className="text-xl text-blue-900 font-semibold">
+                Register
+              </span>
+            </Link>
           </div>
         )}
       </div>

@@ -3,7 +3,7 @@ import { Checkbox, Form, notification } from "antd";
 import {
   CustomPagination,
   CustomTable,
-  TextInput,
+  CustomInput,
 } from "../../components/StyledComponent";
 import {
   CloseOutlined,
@@ -109,7 +109,7 @@ const AffiliationSetting = () => {
                   style={{ marginBottom: 0 }}
                   className="me-7"
                 >
-                  <TextInput placeholder="Type your affiliation" />
+                  <CustomInput placeholder="Type your affiliation" />
                 </Form.Item>
                 <button type="submit">
                   <CheckOutlined

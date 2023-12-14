@@ -13,12 +13,69 @@ const STATUS = Object.freeze({
   PAUSED: "paused",
 });
 
+const FEATURE = Object.freeze({
+  DASHBOARD: "Dashboard",
+  AUTHORIZATION_SETTING: "Affiliation Management",
+  EMPLOYEE_MANAGEMENT: "Employee Management",
+  USER_MANAGEMENT: "User Management",
+  COMPANY_INFORMATION: "Company Information",
+  REPORT_MANAGEMENT: "Report Management",
+});
+
 const ROLE = Object.freeze({
   ADMIN: "Admin",
   EMPLOYEE: "Employee",
   STUDENT: "Student",
   COMPANY: "Company",
   STAFF: "Staff",
+});
+
+const LOCATION = Object.freeze({
+  // Hà Nội
+  BA_DINH: "Ba Đình",
+  HOAN_KIEM: "Hoàn Kiếm",
+  TAY_HO: "Tây Hồ",
+  LONG_BIEN: "Long Biên",
+  CAU_GIAY: "Cầu Giấy",
+  DONG_DA: "Đống Đa",
+  HAI_BA_TRUNG: "Hai Bà Trưng",
+  THANH_XUAN: "Thanh Xuân",
+  HOANG_MAI: "Hoàng Mai",
+  TU_LIEM: "Từ Liêm",
+  HA_DONG: "Hà Đông",
+  BAC_TU_LIEM: "Bắc Từ Liêm",
+  THANH_TRI: "Thanh Trì",
+  // Hồ Chí Minh
+  QUAN_1: "Quận 1",
+  QUAN_2: "Quận 2",
+  QUAN_3: "Quận 3",
+  QUAN_4: "Quận 4",
+  QUAN_5: "Quận 5",
+  QUAN_6: "Quận 6",
+  QUAN_7: "Quận 7",
+  QUAN_8: "Quận 8",
+  QUAN_9: "Quận 9",
+  QUAN_10: "Quận 10",
+  QUAN_11: "Quận 11",
+  QUAN_12: "Quận 12",
+  BINH_TAN: "Bình Tân",
+  BINH_THANH: "Bình Thạnh",
+  GO_VAP: "Gò Vấp",
+  PHU_NHUAN: "Phú Nhuận",
+  TAN_BINH: "Tân Bình",
+  TAN_PHU: "Tân Phú",
+  THU_DUC: "Thủ Đức",
+  BIEN_HOA: "Biên Hòa",
+  VUNG_TAU: "Vũng Tàu",
+
+  // Đà Nẵng
+  HAI_CHAU: "Hải Châu",
+  THANH_KHE: "Thanh Khê",
+  SON_TRA: "Sơn Trà",
+  NGU_HANH_SON: "Ngũ Hành Sơn",
+  CAM_LE: "Cẩm Lệ",
+  LIEN_CHIEU: "Liên Chiểu",
+  HOA_VANG: "Hòa Vang",
 });
 
 const JOB_CONTRACT = Object.freeze({
@@ -55,13 +112,16 @@ const QUANTITY_EMPLOYEE = [
 ];
 
 const FIELD_OF_WORK = [
-  "Information Technology (IT)",
-  "Graphic Design & Multimedia",
-  "Finance & Banking",
-  "Healthcare",
-  "Education & Training",
-  "Services & Tourism",
-  "Energy & Environment",
+  "Programming",
+  "Data Analysis",
+  "Cybersecurity",
+  "Cloud Computing",
+  "DevOps",
+  "Machine Learning",
+  "Web Development",
+  "Mobile App Development",
+  "Network Administration",
+  "Database Management",
 ];
 
 const SKILL1 = [
@@ -77,87 +137,11 @@ const SKILL1 = [
   "Database Management",
 ];
 
-const SKILL2 = [
-  "Graphic Design",
-  "User Interface (UI) Design",
-  "Animation",
-  "Video Editing",
-  "3D Modeling",
-  "Multimedia Production",
-  "Typography",
-  "Branding",
-  "User Experience (UX) Design",
-  "Adobe Creative Suite",
-];
-
-const SKILL3 = [
-  "Financial Analysis",
-  "Risk Management",
-  "Investment Banking",
-  "Accounting",
-  "Fintech",
-  "Blockchain",
-  "Financial Modeling",
-  "Asset Management",
-  "Credit Analysis",
-  "Portfolio Management",
-];
-
-const SKILL4 = [
-  "Medical Coding",
-  "Patient Care",
-  "Healthcare Management",
-  "Electronic Health Records (EHR)",
-  "Telehealth",
-  "Medical Research",
-  "Clinical Trials",
-  "Nursing",
-  "Health Informatics",
-  "Mental Health Counseling",
-];
-
-const SKILL5 = [
-  "Renewable Energy",
-  "Environmental Engineering",
-  "Sustainability",
-  "Green Technology",
-  "Climate Change Mitigation",
-  "Energy Management",
-  "Environmental Policy",
-  "Carbon Footprint Reduction",
-  "Waste Management",
-  "Environmental Impact Assessment",
-];
-
-const SKILL6 = [
-  "Teaching",
-  "Curriculum Development",
-  "Educational Technology",
-  "Classroom Management",
-  "E-Learning",
-  "Instructional Design",
-  "Student Assessment",
-  "Classroom Assessment Techniques (CATs)",
-  "Educational Psychology",
-  "Pedagogy",
-];
-
-const SKILL7 = [
-  "Hotel Management",
-  "Event Planning",
-  "Customer Service",
-  "Tour Guiding",
-  "Hospitality Management",
-  "Culinary Arts",
-  "Travel Planning",
-  "Reservation Systems",
-  "Guest Relations",
-  "Service Industry Management",
-];
-
 export {
+  LOCATION,
   STATUS,
   ROLE,
+  FEATURE,
   LOCAL_ITEM,
   FIELD_OF_WORK,
   QUANTITY_EMPLOYEE,
@@ -165,10 +149,4 @@ export {
   JOB_TYPE,
   JOB_LEVEL,
   SKILL1,
-  SKILL2,
-  SKILL3,
-  SKILL4,
-  SKILL5,
-  SKILL6,
-  SKILL7,
 };

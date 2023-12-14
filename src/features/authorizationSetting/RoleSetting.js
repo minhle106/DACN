@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   CustomPagination,
   CustomTable,
-  TextInput,
+  CustomInput,
 } from "../../components/StyledComponent";
 import {
   CheckOutlined,
@@ -72,7 +72,7 @@ const RoleSetting = () => {
                   style={{ marginBottom: 0 }}
                   className="me-4"
                 >
-                  <TextInput placeholder="Type your role" />
+                  <CustomInput placeholder="Type your role" />
                 </Form.Item>
                 <button type="submit">
                   <CheckOutlined

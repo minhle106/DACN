@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Form, Select, notification } from "antd";
+import { Form, Select } from "antd";
 import {
   BigInput,
   BigPasswordInput,
@@ -11,15 +11,14 @@ import {
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { FIELD_OF_WORK, QUANTITY_EMPLOYEE, ROLE } from "../../ultils/constant";
 import { PlusOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { register, selectAuth } from "../../stores/reducer/authSlice";
-import { capitalizeFirstLetter } from "../../ultils/helpFunc";
+import { useDispatch } from "react-redux";
+import { register } from "../../stores/reducer/authSlice";
 
 const Form1 = (props) => {
-  const { form, setStep, step } = props;
+  const { form, setStep } = props;
   const inputRef = useRef();
   const handleSubmit = () => {
-    setStep(step + 1);
+    setStep(1);
   };
 
   useEffect(() => {
@@ -81,30 +80,10 @@ const Form1 = (props) => {
           <BigPasswordInput placeholder="Type your password" />
         </Form.Item>
 
-        <Form.Item
-          label={<BigLabel>Select your role: </BigLabel>}
-          name="role"
-          rules={[{ required: true, message: "Please choose your role!" }]}
-          initialValue={form.getFieldValue(["role"])}
-        >
-          <BigSelect
-            placeholder="Choose your role"
-            onChange={(value) => {
-              form.setFieldValue(["role"], value);
-            }}
-          >
-            {Object.values(ROLE).map((item, index) => (
-              <Select.Option value={item} key={index}>
-                {capitalizeFirstLetter(item)}
-              </Select.Option>
-            ))}
-          </BigSelect>
-        </Form.Item>
-
         <Form.Item>
           <button
             type="submit"
-            className="mt-4 py-3 border w-[100%] bg-teal-600 rounded-full text-white font-semibold hover:bg-teal-700"
+            className="mt-4 py-3 border w-[100%] bg-blue-700 rounded-lg text-white font-semibold hover:bg-blue-800"
           >
             Continue
           </button>
@@ -116,12 +95,11 @@ const Form1 = (props) => {
 
 const Form2 = (props) => {
   const dispatch = useDispatch();
-  const { form, setStep, step } = props;
+  const { form, setStep } = props;
   const [fieldOfWork, setFieldOfWork] = useState(FIELD_OF_WORK);
   const [fieldText, setFieldText] = useState("");
   const inputRef = useRef();
   const addRef = useRef();
-  const { isRegister } = useSelector(selectAuth);
 
   const handleRegister = () => {
     let start, end;
@@ -146,6 +124,7 @@ const Form2 = (props) => {
       companyAddress: form.getFieldValue(["companyAddress"]),
       numberOfEmployees: form.getFieldValue(["numberOfEmployees"]),
       companyName: form.getFieldValue(["companyName"]),
+      //   code: form.getFieldValue("code"),
     };
     dispatch(register({ formInput, setStep }));
   };
@@ -161,15 +140,6 @@ const Form2 = (props) => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-  useEffect(() => {
-    if (isRegister) {
-      notification.success({
-        message: "Success",
-        description: "Registration successful!",
-      });
-      setStep(step + 1);
-    }
-  }, [isRegister]);
 
   return (
     <div className="SignUpForm">
@@ -199,7 +169,7 @@ const Form2 = (props) => {
             <div>
               <Form.Item
                 label={<BigLabel>Job title:</BigLabel>}
-                name="jobTitl"
+                name="jobTitle"
                 initialValue={form.getFieldValue(["jobTitle"])}
               >
                 <BigInput placeholder="Type your job title" />
@@ -319,7 +289,7 @@ const Form2 = (props) => {
           <Form.Item>
             <button
               type="submit"
-              className="mt-4 py-3 border w-[100%] bg-teal-600 rounded-full text-white font-semibold hover:bg-teal-700"
+              className="mt-4 py-3 border w-[100%] bg-blue-700 rounded-lg text-white font-semibold hover:bg-blue-800"
             >
               Register
             </button>
@@ -335,8 +305,8 @@ const SignUpForm = (props) => {
 
   return (
     <div className="text-center">
-      {step === 0 && <Form1 form={form} setStep={setStep} step={step} />}
-      {step === 1 && <Form2 form={form} setStep={setStep} step={step} />}
+      {step === 0 && <Form1 form={form} setStep={setStep} />}
+      {step === 3 && <Form2 form={form} setStep={setStep} />}
     </div>
   );
 };

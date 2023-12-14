@@ -1,13 +1,13 @@
 import React from "react";
-import AffiliationTable from "../../../features/affiliationSetting/AffiliationSetting";
-import RoleTable from "../../../features/roleSetting/RoleSetting";
+import AffiliationFeature from "../../../features/authorizationSetting/AffiliationSetting";
+import RoleFeature from "../../../features/authorizationSetting/RoleSetting";
 
 const AuthorizationSetting = () => {
   return (
     <>
-      <AffiliationTable />
+      <AffiliationFeature />
       <br /> <br />
-      <RoleTable />
+      <RoleFeature />
     </>
   );
 };

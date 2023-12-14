@@ -6,9 +6,14 @@ import {
   CustomReactQuill,
   FormMultipleSelect,
   FormSelect,
-} from "./StyledComponent";
+} from "../../components/StyledComponent";
 import { PlusOutlined } from "@ant-design/icons";
-import { JOB_CONTRACT, JOB_LEVEL, JOB_TYPE, SKILL1 } from "../ultils/constant";
+import {
+  JOB_CONTRACT,
+  JOB_LEVEL,
+  JOB_TYPE,
+  SKILL1,
+} from "../../ultils/constant";
 import moment from "moment";
 
 const JobForm = ({ form, onFinish, open, setOpen }) => {
@@ -265,10 +270,10 @@ const JobForm = ({ form, onFinish, open, setOpen }) => {
             ]}
           >
             <DatePicker
-              disabledDate={(current) => {
+              /* disabledDate={(current) => {
                 let customDate = moment().format("YYYY-MM-DD");
                 return current && current < moment(customDate, "YYYY-MM-DD");
-              }}
+              }} */
               style={{ width: "100%" }}
               size={"large"}
             />

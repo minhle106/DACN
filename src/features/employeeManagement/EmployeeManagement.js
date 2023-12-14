@@ -13,7 +13,7 @@ import { STATUS } from "../../ultils/constant";
 import { Drawer, Form, Tag, notification } from "antd";
 import moment from "moment";
 import AddButton from "../../components/AddButton";
-import EmployeeForm from "../../components/EmployeeForm";
+import EmployeeForm from "./EmployeeForm";
 
 const EmployeeManagement = () => {
   const [open, setOpen] = useState(false);

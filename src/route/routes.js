@@ -15,6 +15,10 @@ import {
   Unauthorized,
   Forbidden,
   NotFound,
+  JobDetail,
+  CVBuilder,
+  CandidateManagement,
+  Profile,
 } from "../pages/pages";
 
 export const routes = [
@@ -46,19 +50,43 @@ export const routes = [
         path: PATH.SIGN_UP,
         element: <SignUp />,
       },
+      {
+        path: PATH.JOB_DETAIL,
+        element: <JobDetail />,
+      },
+      {
+        path: PATH.CV_BUILDER,
+        element: (
+          <RequireAuth>
+            <CVBuilder />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: PATH.PROFILE,
+        element: (
+          <RequireAuth>
+            <Profile />
+          </RequireAuth>
+        ),
+      },
     ],
   },
   {
     element: (
-      //<RequireAuth>
-      <Dashboard />
-      // </RequireAuth>
+      <RequireAuth>
+        <Dashboard />
+      </RequireAuth>
     ),
     path: PATH.DASHBOARD,
     children: [
       {
         path: PATH.POSTED_JOB,
         element: <PostedJobs />,
+      },
+      {
+        path: PATH.CANDIDATE_MANAGEMENT,
+        element: <CandidateManagement />,
       },
       {
         path: PATH.EMPLOYEE_MANAGEMENT,

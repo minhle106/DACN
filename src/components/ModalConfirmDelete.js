@@ -13,7 +13,7 @@ const ModalConfirmDelete = ({ onOK, content }) => {
         background: "black",
         color: "white",
       },
-      className: "hover:!bg-[#4b4b4b] hover:!border-black border-black",
+      className: "hover:!bg-[#242424] hover:!border-black border-black",
     },
     okButtonProps: {
       danger: true,

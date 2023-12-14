@@ -12,8 +12,7 @@ import {
 } from "../../components/StyledComponent";
 import { useSelector } from "react-redux";
 import { Drawer, Form, Tag, Tooltip, notification } from "antd";
-import JobForm from "../../components/JobForm";
-import { selectAuth } from "../../stores/reducer/authSlice";
+import JobForm from "./JobForm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createJob,
@@ -33,13 +32,11 @@ const JobManagement = () => {
   const [action, setAction] = useState("");
   const [selectedJob, setSelectedJob] = useState("");
   const [form] = Form.useForm();
-  const { userInfo } = useSelector(selectAuth);
   const queryClient = useQueryClient();
 
   const { data: jobData, fetchStatus: jobFetchStatus } = useQuery({
     queryKey: ["jobs", page, size],
-    queryFn: () =>
-      getJobs({ page: page, size: size, userId: userInfo?.userId }),
+    queryFn: () => getJobs({ page: page, size: size }),
     staleTime: 1 * 60 * 1000,
   });
 
@@ -72,7 +69,6 @@ const JobManagement = () => {
       createJobMutation(
         {
           ...values,
-          userId: userInfo?.userId,
         },
         {
           onSuccess: () => {
@@ -97,7 +93,6 @@ const JobManagement = () => {
           params: selectedJob,
           body: {
             ...values,
-            userId: userInfo?.userId,
           },
         },
         {
@@ -326,6 +321,7 @@ const JobManagement = () => {
         dataSource={tableData}
         pagination={false}
         scroll={{ y: `calc(100vh - 315px)` }}
+        onRow={() => {}}
       />
 
       <CustomPagination

@@ -1,8 +1,8 @@
 import React from "react";
-import EmployeeTable from "../../../features/employeeManagement/EmployeeManagement";
+import EmployeeFeature from "../../../features/employeeManagement/EmployeeManagement";
 
 const EmployeeManagement = () => {
-  return <EmployeeTable />;
+  return <EmployeeFeature />;
 };
 
 export default EmployeeManagement;

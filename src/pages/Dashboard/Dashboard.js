@@ -5,15 +5,17 @@ import {
   PieChartOutlined,
   SolutionOutlined,
   UserOutlined,
-  LogoutOutlined,
   SettingOutlined,
+  SearchOutlined,
+  BellOutlined,
 } from "@ant-design/icons";
-import { Layout, Button, theme, notification } from "antd";
-import { CustomButton, MenuDashboard } from "../../components/StyledComponent";
+import { Layout, Button, theme } from "antd";
+import { CustomSearch, MenuDashboard } from "../../components/StyledComponent";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../route/paths";
 import { useDispatch } from "react-redux";
-import { logout } from "../../stores/reducer/authSlice";
+import JobCascadeLogo from "../../assets/images/JobCascadeLogo.png";
+import UserDropDown from "../../components/UserDropdown";
 
 const { Header, Sider, Content } = Layout;
 
@@ -21,7 +23,6 @@ const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
 
   const {
     token: { colorBgContainer },
@@ -35,23 +36,22 @@ const Dashboard = () => {
         collapsed={collapsed}
         style={{
           minHeight: "100vh",
-          background: "#3b3a48",
+          background: "#242630",
         }}
-        width="230px"
+        width="260px"
       >
         <div className="sticky top-0">
-          <div className="flex justify-center ">
-            <img
-              className="w-[10rem]"
-              src="https://wallpapercave.com/wp/wp8864237.png"
-              alt="logo"
-            />
+          <div
+            onClick={() => navigate(PATH.COMMUNITY)}
+            className="cursor-pointer flex justify-center bg-white mb-5"
+          >
+            <img className="w-[155px]" src={JobCascadeLogo} alt="Logo" />
           </div>
           <MenuDashboard
             mode="inline"
             selectedKeys={location.pathname}
             defaultOpenKeys={["3", "4"]}
-            className="text-white bg-[#3b3a48] px-2 "
+            className="text-white bg-[#242630] px-2 "
             items={[
               {
                 key: PATH.DASHBOARD,
@@ -82,8 +82,11 @@ const Dashboard = () => {
                     },
                   },
                   {
-                    key: "32",
-                    label: "Applied CV",
+                    key: PATH.CANDIDATE_MANAGEMENT,
+                    label: "Candidate Management",
+                    onClick: () => {
+                      navigate(PATH.CANDIDATE_MANAGEMENT);
+                    },
                   },
                 ],
               },
@@ -106,35 +109,27 @@ const Dashboard = () => {
             background: colorBgContainer,
           }}
         >
-          <div className="flex justify-between items-center">
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            />
-            <CustomButton
-              onClick={() => {
-                dispatch(logout());
-                notification.success({
-                  message: "Success",
-                  description: "Logout successful!",
-                });
-                navigate("/");
-              }}
-              style={{
-                width: 100,
-                height: 40,
-              }}
-              className="flex items-center bg-black font-semibold text-white hover:text-black me-4 hover:bg-gray-200 hover:border-black"
-            >
-              <LogoutOutlined className="me-2b text-xl bg-black bg-transparent me-2" />
-              <div>Logout</div>
-            </CustomButton>
+          <div className="flex justify-between items-center me-[28px]">
+            <div className="flex w-[50%]">
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: "16px",
+                  width: 84,
+                  height: 64,
+                  borderRight: "1px solid #d5d5d5",
+                  borderLeft: "1px solid #d5d5d5",
+                  borderRadius: 0,
+                }}
+              />
+              <CustomSearch
+                placeholder="Type to search ..."
+                prefix={<SearchOutlined className="text-xl me-2" />}
+              />
+            </div>
+            <UserDropDown />
           </div>
         </Header>
         <Content
