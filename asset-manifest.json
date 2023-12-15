@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/DACN/static/css/main.d6e0d29f.css",
+    "main.js": "/DACN/static/js/main.3d5bde32.js",
+    "static/js/651.a4a835ae.chunk.js": "/DACN/static/js/651.a4a835ae.chunk.js",
+    "static/media/Student.png": "/DACN/static/media/Student.3e37d401b5141a11e81a.png",
+    "static/media/Company.png": "/DACN/static/media/Company.bf53f4c18cb5e1826c72.png",
+    "static/media/Login.png": "/DACN/static/media/Login.ab9c0231359f21b99d69.png",
+    "static/media/SignUp.webp": "/DACN/static/media/SignUp.41418e3172a7837adcd5.webp",
+    "static/media/Employee.png": "/DACN/static/media/Employee.f3042c446504ca87a088.png",
+    "static/media/CommingSoon.jpg": "/DACN/static/media/CommingSoon.dfd5f91776e479116fb2.jpg",
+    "static/media/BgNoel.jpg": "/DACN/static/media/BgNoel.41b0d0947a3100234977.jpg",
+    "static/media/JobCascadeLogo.png": "/DACN/static/media/JobCascadeLogo.16bd6dc4b312b21ab311.png",
+    "index.html": "/DACN/index.html",
+    "main.d6e0d29f.css.map": "/DACN/static/css/main.d6e0d29f.css.map",
+    "main.3d5bde32.js.map": "/DACN/static/js/main.3d5bde32.js.map",
+    "651.a4a835ae.chunk.js.map": "/DACN/static/js/651.a4a835ae.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d6e0d29f.css",
+    "static/js/main.3d5bde32.js"
+  ]
+}
