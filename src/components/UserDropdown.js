@@ -1,5 +1,5 @@
-import { useDispatch } from "react-redux";
-import { logout } from "../stores/reducer/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectAuth } from "../stores/reducer/authSlice";
 import { Avatar, Button, notification } from "antd";
 import {
   BellOutlined,
@@ -18,9 +18,10 @@ import AvatarDefault from "../assets/images/AvatarDefault.png";
 const UserDropDown = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userInfo } = useSelector(selectAuth);
 
   const { data: userData } = useQuery({
-    queryKey: ["userInfo"],
+    queryKey: ["userInfo", userInfo],
     queryFn: () => getUserInfo(),
     staleTime: Infinity,
   });

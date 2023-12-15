@@ -161,7 +161,12 @@ const Evaluation = () => {
           <Avatar icon={<UserOutlined />} />
           <div>
             <div>{candidate.fullName}</div>
-            <div className="text-blue-600 hover:text-blue-800 underline">
+            <div
+              onClick={() => {
+                window.open(`http://${candidate.linkCV}`, "_blank");
+              }}
+              className="text-blue-600 hover:text-blue-800 underline"
+            >
               Link CV
             </div>
           </div>

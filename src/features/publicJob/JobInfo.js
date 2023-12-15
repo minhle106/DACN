@@ -18,6 +18,7 @@ import {
 } from "../../ultils/constant";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../route/paths";
+import CommingSoonImg from "../../assets/images/CommingSoon.jpg";
 
 const JobInfo = () => {
   const [form] = Form.useForm();
@@ -184,7 +185,9 @@ const JobInfo = () => {
               </div>
             ))}
           </div>
-          <div className="w-4/12 bg-white rounded-lg border shadow px-5 py-5 mt-5 max-lg:hidden"></div>
+          <div className="w-4/12 bg-white rounded-lg border shadow px-5 py-5 mt-5 max-lg:hidden">
+            <img src={CommingSoonImg} alt="Comming soon" />
+          </div>
         </div>
       </Spin>
     </div>

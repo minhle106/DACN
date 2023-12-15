@@ -86,6 +86,13 @@ const Dashboard = () => {
                       navigate(PATH.CANDIDATE_MANAGEMENT);
                     },
                   },
+                  {
+                    key: PATH.STORED_CV,
+                    label: "Stored CV",
+                    onClick: () => {
+                      navigate(PATH.STORED_CV);
+                    },
+                  },
                 ],
               },
               {

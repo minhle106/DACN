@@ -4,34 +4,20 @@ import {
   CustomTable,
 } from "../../components/StyledComponent";
 import moment from "moment";
-import { Avatar, notification } from "antd";
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import {
-  getCandidates,
-  toInterviewCandidate,
-} from "../../stores/reducer/candidateSlice";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import ModalNotification from "../../components/ModalNotification";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { getCandidates } from "../../stores/reducer/candidateSlice";
+import { useQuery } from "@tanstack/react-query";
 import { STATUS } from "../../ultils/constant";
 
-const CheckingCV = () => {
+const StoredCV = () => {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
-  const queryClient = useQueryClient();
 
   const { data: candidateData, fetchStatus: candidateFetchStatus } = useQuery({
-    queryKey: ["Checking", page, size],
-    queryFn: () =>
-      getCandidates({ page: page, size: size, status: "Checking" }),
+    queryKey: ["Stored", page, size],
+    queryFn: () => getCandidates({ page: page, size: size, status: "Stored" }),
     staleTime: Infinity,
-  });
-
-  const { mutate: toInterviewCandidateMutation } = useMutation({
-    mutationFn: (params) => toInterviewCandidate(params),
   });
 
   const onChangePagination = (page, size) => {
@@ -56,35 +42,8 @@ const CheckingCV = () => {
       phone: item.phone,
     },
     applyDate: item.dateApplied,
+    status: item.status,
   }));
-
-  const toInterview = (id) => {
-    ModalNotification({
-      onOK: () => {
-        toInterviewCandidateMutation(id, {
-          onSuccess: () => {
-            queryClient.invalidateQueries("Checking");
-            notification.success({
-              message: "Success",
-              description: "Checking CV successfully!",
-            });
-          },
-          onError: (error) => {
-            notification.error({
-              message: "Error",
-              description: error.message,
-            });
-          },
-        });
-      },
-      content: "Do you want to interview this candidate?",
-      okText: "To interview",
-      title: "Confirm",
-      width: 500,
-    });
-  };
-
-  console.log(candidateData);
 
   const columns = [
     {
@@ -159,36 +118,23 @@ const CheckingCV = () => {
       width: "10%",
     },
     {
-      title: "Action",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
       align: "center",
-      render: (_, record) => {
+      render: (status) => {
+        if (status === "Passed")
+          return (
+            <span className="text-sm font-semibold text-green-500">
+              {status}
+            </span>
+          );
+
         return (
-          <div className="flex gap-[10px] justify-center">
-            <div
-              onClick={() => toInterview(record.key)}
-              className="px-4 py-1 border hover:border-blue-400 rounded bg-white"
-            >
-              <div className="flex items-center">
-                <CheckCircleOutlined
-                  className="me-2"
-                  style={{ color: "green", fontSize: 16 }}
-                />
-                <div>To interview</div>
-              </div>
-            </div>
-            <div className="px-4 py-1 border hover:border-blue-400 rounded bg-white">
-              <div className="flex items-center">
-                <CloseCircleOutlined
-                  className="me-2"
-                  style={{ color: "red", fontSize: 16 }}
-                />
-                <div>Reject</div>
-              </div>
-            </div>
-          </div>
+          <span className="text-sm font-semibold text-red-500">{status}</span>
         );
       },
-      width: "25%",
+      width: "10%",
     },
   ];
 
@@ -217,4 +163,4 @@ const CheckingCV = () => {
   );
 };
 
-export default CheckingCV;
+export default StoredCV;

@@ -12,6 +12,7 @@ export const PATH = Object.freeze({
   DASHBOARD: "/dashboard",
   POSTED_JOB: "/dashboard/posted-jobs",
   CANDIDATE_MANAGEMENT: "/dashboard/candidate-management",
+  STORED_CV: "/dashboard/stored-cv",
   EMPLOYEE_MANAGEMENT: "/dashboard/employee-management",
   USER_MANAGEMENT: "/dashboard/user-management",
   AUTHORIZATION_SETTING: "/dashboard/authorization-setting",

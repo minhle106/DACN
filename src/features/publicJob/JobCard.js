@@ -16,6 +16,7 @@ import { selectAuth } from "../../stores/reducer/authSlice";
 import { PATH } from "../../route/paths";
 import { useNavigate, useParams } from "react-router-dom";
 import { applyJob } from "../../stores/reducer/userSlice";
+import linkifyHtml from "linkify-html";
 
 const JobCard = (props) => {
   const { job, moreInfo } = props;
@@ -195,18 +196,34 @@ const JobCard = (props) => {
                   ))}
                 </div>
               </div>
-              <div>
-                <span className="text-lg font-semibold">Description: </span>
-                <br />
-                {job?.jobDescription}
-              </div>
+
+              {job?.jobDescription && (
+                <div>
+                  <span className="text-lg font-semibold">Description: </span>
+                  <br />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: linkifyHtml(job?.jobDescription, {
+                        target: "_blank",
+                      }),
+                    }}
+                  ></div>
+                </div>
+              )}
+
               {job?.qualification && (
                 <div>
                   <span className="text-lg font-semibold">
                     Qualifications:{" "}
                   </span>
                   <br />
-                  {job?.qualification}
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: linkifyHtml(job?.qualification, {
+                        target: "_blank",
+                      }),
+                    }}
+                  ></div>
                 </div>
               )}
 
@@ -216,7 +233,13 @@ const JobCard = (props) => {
                     Key responsibilities:{" "}
                   </span>
                   <br />
-                  {job?.keyResponsibility}
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: linkifyHtml(job?.keyResponsibility, {
+                        target: "_blank",
+                      }),
+                    }}
+                  ></div>
                 </div>
               )}
 
@@ -224,7 +247,13 @@ const JobCard = (props) => {
                 <div>
                   <span className="text-lg font-semibold">Benefits: </span>
                   <br />
-                  {job?.benefit}
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: linkifyHtml(job?.benefit, {
+                        target: "_blank",
+                      }),
+                    }}
+                  ></div>
                 </div>
               )}
             </Space>

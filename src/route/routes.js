@@ -19,6 +19,7 @@ import {
   CVBuilder,
   CandidateManagement,
   Profile,
+  StoredCV,
 } from "../pages/pages";
 
 export const routes = [
@@ -87,6 +88,10 @@ export const routes = [
       {
         path: PATH.CANDIDATE_MANAGEMENT,
         element: <CandidateManagement />,
+      },
+      {
+        path: PATH.STORED_CV,
+        element: <StoredCV />,
       },
       {
         path: PATH.EMPLOYEE_MANAGEMENT,
