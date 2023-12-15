@@ -33,10 +33,22 @@ const toEvaluationCandidate = async (params) => {
   return response;
 };
 
+const addNotes = async (body) => {
+  const response = await candidateService.addNotes(body);
+  return response;
+};
+
+const createMeeting = async (body) => {
+  const response = await candidateService.createMeeting(body);
+  return response;
+};
+
 export {
   getCandidates,
   rejectCandidate,
   acceptCandidate,
   toInterviewCandidate,
   toEvaluationCandidate,
+  addNotes,
+  createMeeting,
 };

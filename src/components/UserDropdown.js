@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectAuth } from "../stores/reducer/authSlice";
+import { useDispatch } from "react-redux";
+import { logout } from "../stores/reducer/authSlice";
 import { Avatar, Button, notification } from "antd";
 import {
   BellOutlined,
@@ -11,11 +11,19 @@ import {
 import { CustomDropdown } from "./StyledComponent";
 import { PATH } from "../route/paths";
 import { Link, useNavigate } from "react-router-dom";
+import { getUserInfo } from "../stores/reducer/userSlice";
+import { useQuery } from "@tanstack/react-query";
+import AvatarDefault from "../assets/images/AvatarDefault.png";
 
 const UserDropDown = () => {
-  const { userInfo } = useSelector(selectAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { data: userData } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: () => getUserInfo(),
+    staleTime: Infinity,
+  });
 
   const items = [
     {
@@ -74,9 +82,9 @@ const UserDropDown = () => {
       <div className="flex items-center gap-[10px]">
         <Link to={PATH.PROFILE} className="flex items-center gap-[10px]">
           <div className="text-blue-700 font-semibold">
-            {userInfo?.fullName}
+            {userData?.fullName}
           </div>
-          <Avatar size="large" icon={<UserOutlined />} />
+          <Avatar size="large" src={AvatarDefault} />
         </Link>
         <CustomDropdown menu={{ items }}>
           <DownOutlined className="cursor-pointer" />

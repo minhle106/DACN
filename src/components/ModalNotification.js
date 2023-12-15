@@ -4,7 +4,7 @@ import { Modal } from "antd";
 const ModalNotification = ({ onOK, content, okText, title, width }) => {
   Modal.confirm({
     title: title,
-    icon: <ExclamationCircleOutlined style={{ color: "blue" }} />,
+    icon: <ExclamationCircleOutlined />,
     content: content,
     onOk: onOK,
     onCancel() {},
@@ -13,13 +13,13 @@ const ModalNotification = ({ onOK, content, okText, title, width }) => {
         background: "black",
         color: "white",
       },
-      className: "hover:!bg-[#242424] hover:!border-black border-black",
+      className: "hover:!bg-[#3b3b3b] hover:!border-black border-black",
     },
     okButtonProps: {
       style: {
-        background: "blue",
         color: "white",
       },
+      className: "bg-blue-600 hover:!bg-blue-800 border-blue-700",
     },
     okText: okText,
     width: width,

@@ -218,7 +218,7 @@ export const CustomSteps = styled(Steps)`
 
 export const CustomButton = styled.button`
   padding: 0.5rem 1rem 0.5rem 1rem;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   border: 1px solid #d9d9d9;
   transition: all 0.3s ease;
 `;
@@ -353,6 +353,10 @@ export const CustomSelect = styled(Select)`
 `;
 
 export const CustomDatePicker = styled(DatePicker)`
+  width: 100%;
+`;
+
+export const CustomRangePicker = styled(DatePicker.RangePicker)`
   width: 100%;
 `;
 

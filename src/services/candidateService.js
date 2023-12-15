@@ -19,6 +19,12 @@ const candidateService = {
   accept: (params) => {
     return http.post(`${cvApplyAPI}/accept/${params}`);
   },
+  addNotes: (body) => {
+    return http.put(`${cvApplyAPI}/note`, body);
+  },
+  createMeeting: (body) => {
+    return http.post(`${cvApplyAPI}/meeting`, body);
+  },
 };
 
 export default candidateService;

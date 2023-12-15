@@ -7,13 +7,11 @@ import {
   UserOutlined,
   SettingOutlined,
   SearchOutlined,
-  BellOutlined,
 } from "@ant-design/icons";
 import { Layout, Button, theme } from "antd";
 import { CustomSearch, MenuDashboard } from "../../components/StyledComponent";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../route/paths";
-import { useDispatch } from "react-redux";
 import JobCascadeLogo from "../../assets/images/JobCascadeLogo.png";
 import UserDropDown from "../../components/UserDropdown";
 
@@ -108,8 +106,9 @@ const Dashboard = () => {
             padding: 0,
             background: colorBgContainer,
           }}
+          className="sticky top-0 z-10"
         >
-          <div className="flex justify-between items-center me-[28px]">
+          <div className="flex justify-between items-center me-[28px] border-b">
             <div className="flex w-[50%]">
               <Button
                 type="text"

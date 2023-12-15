@@ -15,9 +15,7 @@ import { useSelector } from "react-redux";
 import { selectAuth } from "../../stores/reducer/authSlice";
 import { PATH } from "../../route/paths";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 import { applyJob } from "../../stores/reducer/userSlice";
-import http from "../../ultils/httpConfig";
 
 const JobCard = (props) => {
   const { job, moreInfo } = props;
@@ -37,7 +35,7 @@ const JobCard = (props) => {
     const formData = new FormData();
     formData.append("file", values.fileCV.file);
     formData.append("jobId", id);
-    applyJob(formData);
+    applyJob(formData, setIsOpen);
   };
 
   return (

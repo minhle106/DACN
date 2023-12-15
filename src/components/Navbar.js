@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { notification } from "antd";
-import { logout, selectAuth } from "../stores/reducer/authSlice";
-import { LogoutOutlined } from "@ant-design/icons";
+import { selectAuth } from "../stores/reducer/authSlice";
 import { PATH } from "../route/paths";
-import { CustomButton } from "./StyledComponent";
 import { ROLE } from "../ultils/constant";
 import JobCascadeLogo from "../assets/images/JobCascadeLogo.png";
 import { selectSystem, setActiveKey } from "../stores/reducer/systemSlice";

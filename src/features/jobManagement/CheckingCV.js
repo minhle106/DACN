@@ -62,7 +62,7 @@ const CheckingCV = () => {
       onOK: () => {
         toInterviewCandidateMutation(id, {
           onSuccess: () => {
-            queryClient.invalidateQueries("candidates");
+            queryClient.invalidateQueries("Checking");
             notification.success({
               message: "Success",
               description: "Checking CV successfully!",
