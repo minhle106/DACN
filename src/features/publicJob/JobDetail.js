@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getJob } from "../../stores/reducer/publicJobSlice";
 import { useParams } from "react-router-dom";
 import JobCard from "./JobCard";
-import CommingSoonImg from "../../assets/images/CommingSoon.jpg";
+import CommingSoonImg from "../../assets/CommingSoon.jpg";
 
 const JobDetail = () => {
   const { id } = useParams();

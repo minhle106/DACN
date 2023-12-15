@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { PATH } from "../../route/paths";
 import LoginForm from "./LoginForm";
-import LoginImg from "../../assets/images/Login.png";
+import LoginImg from "../../assets/Login.png";
 
 const Login = () => {
   const { isLoggedIn } = useSelector(selectAuth);

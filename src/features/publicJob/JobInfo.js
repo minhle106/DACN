@@ -18,7 +18,7 @@ import {
 } from "../../ultils/constant";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../route/paths";
-import CommingSoonImg from "../../assets/images/CommingSoon.jpg";
+import CommingSoonImg from "../../assets/CommingSoon.jpg";
 
 const JobInfo = () => {
   const [form] = Form.useForm();

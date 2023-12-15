@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "../stores/reducer/authSlice";
 import { PATH } from "../route/paths";
 import { ROLE } from "../ultils/constant";
-import JobCascadeLogo from "../assets/images/JobCascadeLogo.png";
+import JobCascadeLogo from "../assets/JobCascadeLogo.png";
 import { selectSystem, setActiveKey } from "../stores/reducer/systemSlice";
 import UserDropDown from "./UserDropdown";
 

@@ -1,6 +1,6 @@
-import Student from "../../assets/images/Student.png";
-import Emloyee from "../../assets/images/Employee.png";
-import Company from "../../assets/images/Company.png";
+import Student from "../../assets/Student.png";
+import Emloyee from "../../assets/Employee.png";
+import Company from "../../assets/Company.png";
 import { useState } from "react";
 
 const SelectRole = ({ form, setStep }) => {

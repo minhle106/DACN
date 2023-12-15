@@ -1,5 +1,5 @@
 import React from "react";
-import CommingSoonImg from "../assets/images/CommingSoon.jpg";
+import CommingSoonImg from "../assets/CommingSoon.jpg";
 import { PATH } from "../route/paths";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";

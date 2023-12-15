@@ -8,7 +8,7 @@ import {
   CarryOutOutlined,
 } from "@ant-design/icons";
 import { Divider, Form, Modal, Space, Tag, notification } from "antd";
-import CompanyLogoDefault from "../../assets/images/CompanyLogoDefault.png";
+import CompanyLogoDefault from "../../assets/CompanyLogoDefault.png";
 import moment from "moment/moment";
 import ApplyJobForm from "./ApplyJobForm";
 import { useSelector } from "react-redux";

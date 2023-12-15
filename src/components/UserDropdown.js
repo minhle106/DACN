@@ -13,7 +13,7 @@ import { PATH } from "../route/paths";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserInfo } from "../stores/reducer/userSlice";
 import { useQuery } from "@tanstack/react-query";
-import AvatarDefault from "../assets/images/AvatarDefault.png";
+import AvatarDefault from "../assets/AvatarDefault.png";
 
 const UserDropDown = () => {
   const dispatch = useDispatch();

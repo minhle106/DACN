@@ -12,7 +12,7 @@ import { Layout, Button, theme } from "antd";
 import { CustomSearch, MenuDashboard } from "../../components/StyledComponent";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../route/paths";
-import JobCascadeLogo from "../../assets/images/JobCascadeLogo.png";
+import JobCascadeLogo from "../../assets/JobCascadeLogo.png";
 import UserDropDown from "../../components/UserDropdown";
 
 const { Header, Sider, Content } = Layout;

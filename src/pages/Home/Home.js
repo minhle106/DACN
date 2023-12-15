@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { PATH } from "../../route/paths";
-import BgImg from "../../assets/images/BgNoel.jpg";
+import BgImg from "../../assets/BgNoel.jpg";
 
 const Home = () => {
   const location = useLocation();

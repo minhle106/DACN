@@ -9,7 +9,7 @@ import {
   CustomSelect,
 } from "../../components/StyledComponent";
 import { FIELD_OF_WORK, ROLE } from "../../ultils/constant";
-import AvatarDefault from "../../assets/images/AvatarDefault.png";
+import AvatarDefault from "../../assets/AvatarDefault.png";
 import { useState } from "react";
 import { EditFilled } from "@ant-design/icons";
 import { getUserInfo, updateUserInfo } from "../../stores/reducer/userSlice";

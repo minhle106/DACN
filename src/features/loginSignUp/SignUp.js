@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SignUpForm from "./SignUpForm";
-import SignUpImg from "../../assets/images/SignUp.webp";
+import SignUpImg from "../../assets/SignUp.webp";
 import { Form, notification } from "antd";
 import { CustomSteps } from "../../components/StyledComponent";
 import { useSelector } from "react-redux";
