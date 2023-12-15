@@ -8,7 +8,6 @@ import {
   BigLabel,
   BigSelect,
 } from "../../components/StyledComponent";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import { FIELD_OF_WORK, QUANTITY_EMPLOYEE, ROLE } from "../../ultils/constant";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
