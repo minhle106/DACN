@@ -18,6 +18,7 @@ const authSlice = createSlice({
     isRegister: false,
     isLogin: false,
     authorized: [],
+    count: 1,
   },
   reducers: {
     loginSuccess: (state, action) => {
@@ -38,6 +39,9 @@ const authSlice = createSlice({
     },
     setAuthorized: (state, action) => {
       state.authorized = action.payload;
+    },
+    setCount: (state, action) => {
+      state.count = action.payload;
     },
   },
 });
@@ -106,8 +110,13 @@ const refreshToken = async () => {
   }
 };
 
-export const { loginSuccess, logoutSuccess, setIsRegister, setAuthorized } =
-  authSlice.actions;
+export const {
+  loginSuccess,
+  logoutSuccess,
+  setIsRegister,
+  setAuthorized,
+  setCount,
+} = authSlice.actions;
 export default authSlice.reducer;
 export const selectAuth = (state) => state.auth;
 

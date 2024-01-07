@@ -140,6 +140,8 @@ const StoredCV = () => {
 
   return (
     <>
+      <div className="text-2xl font-semibold mb-[20px]">Stored Candidate</div>
+
       <CustomTable
         loading={candidateFetchStatus === STATUS.FETCHING}
         columns={columns}
